@@ -17,16 +17,17 @@ public class Pallo {
  
     private int x;
     private int y;
-    private float vx;
-    private float vy;
-    private float ax;
-    private float ay;
-    private float massa; 
+    private double vx;
+    private double vy;
+    private double ax;
+    private double ay;
+    private double massa; 
     private int varaus;
     private String vari;
 
-    public Pallo(int x, int y, float vx, float vy, float ax, float ay, 
-            float massa, int varaus, String vari) {
+    public Pallo(int x, int y, double vx, double vy, double ax, double ay, 
+            double massa, int varaus, String vari) {
+        // xx tarkasta etta x, y 0..xx
         this.x = x;
         this.y = y;
         this.vx = vx;
@@ -48,22 +49,22 @@ public class Pallo {
         return this.y;
     }
     
-    public float getPalloVX(){
+    public double getPalloVX(){
         // pallon nopeuden x koordinaatti annetaan ulos
         return this.vx;
     }
     
-    public float getPalloVY(){
+    public double getPalloVY(){
         // pallon nopeuden y koordinaatti annetaan ulos
         return this.vy;
     }
     
-    public float getPalloAX(){
+    public double getPalloAX(){
         // pallon kiihtyvyyden x koordinaatti annetaan ulos
         return this.ax;
     }
     
-    public float getPalloAY(){
+    public double getPalloAY(){
         // pallon kiihtyvyyden y koordinaatti annetaan ulos
         return this.ay;
     }
@@ -73,29 +74,37 @@ public class Pallo {
     }
     
     public void setPalloY(int y){
-        // asetetaan pallon y koordinaatti 
-        this.y= y;
+        // asetetaan pallon y koordinaatti
+            this.y= y;
     }
     
-    public void setPalloVX(float vx){
+    public void setPalloVX(double vx){
         // asetetaan pallon nopeuden x koordinaatti 
         this.vx = vx;
     }
     
-    public void setPalloVY(float vy){
+    public void setPalloVY(double vy){
         // asetetaan pallon nopeuden y koordinaatti 
         this.vy = vy;
     }
     
-    public void setPalloAX(float ax){
+    public void setPalloAX(double ax){
         // asetetaan pallon kiihtyvyyden x koordinaatti 
         this.ax = ax;
     }
     
-    public void setPalloAY(float ay){
+    public void setPalloAY(double ay){
         // asetetaan pallon kiihtyvyyden y koordinaatti 
         this.ay = ay;
     }
+   public double getPalloMassa(){
+        // pallon kiihtyvyyden y koordinaatti annetaan ulos
+        return this.massa;
+    }
+    public void setPalloMassa(double massa){
+        // asetetaan pallon massa
+        this.massa = massa;
+    }    
     public String getPalloVari(){
         // annetaan pallon väri ulos
         return this.vari;
