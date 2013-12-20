@@ -11,55 +11,114 @@ package mok.coulombphet.pelilauta;
  * @author mka, copied from OHJA
  */
 public class Pallo {
-    // contains position in 2d, charge of the ball
-    // also 2d velocity, 2d acceleration and mass of a ball
-    // also color of the ball
+    // Sisältää pallon 2d paikan, 2d nopeuden, 2d kiihtyvyyden
+    // massan varauksen ja värin
+    // sekä metodit niiden asettamiseen ja antamiseen ulos
+ 
     private int x;
     private int y;
-    private int vx;
-    private int vy;
-    private int ax;
-    private int ay;
-    private float mass; 
-    private int charge;
-    private String color;
+    private float vx;
+    private float vy;
+    private float ax;
+    private float ay;
+    private float massa; 
+    private int varaus;
+    private String vari;
 
-    public Pallo(int x, int y, int vx, int vy, int ax, int ay, 
-            float mass, int charge, String color) {
+    public Pallo(int x, int y, float vx, float vy, float ax, float ay, 
+            float massa, int varaus, String vari) {
         this.x = x;
         this.y = y;
         this.vx = vx;
         this.vy = vy;
         this.ax = ax;
         this.ay = ay;
-        this.mass = mass;
-        this.charge = charge;
-        this.color = color;
+        this.massa = massa;
+        this.varaus = varaus;
+        this.vari = vari;
     }
 
     public int getPalloX(){
-        // the x coordinate is returned
+        // pallon x koordinaatti annetaan ulos
         return this.x;
     }
     
     public int getPalloY(){
-        // the y coordinate is returned
-        return this.x;
+        // pallon y koordinaatti annetaan ulos
+        return this.y;
     }
     
-    public int getPalloCharge(){
-        // the charge of the ball is returned
-        return this.charge;
+    public float getPalloVX(){
+        // pallon nopeuden x koordinaatti annetaan ulos
+        return this.vx;
     }
     
-    public int getPalloColor(){
-        // the color of the ball is returned
-        return this.charge;
+    public float getPalloVY(){
+        // pallon nopeuden y koordinaatti annetaan ulos
+        return this.vy;
     }
+    
+    public float getPalloAX(){
+        // pallon kiihtyvyyden x koordinaatti annetaan ulos
+        return this.ax;
+    }
+    
+    public float getPalloAY(){
+        // pallon kiihtyvyyden y koordinaatti annetaan ulos
+        return this.ay;
+    }
+    public void setPalloX(int x){
+        // asetetaan pallon x koordinaatti 
+        this.x = x;
+    }
+    
+    public void setPalloY(int y){
+        // asetetaan pallon y koordinaatti 
+        this.y= y;
+    }
+    
+    public void setPalloVX(float vx){
+        // asetetaan pallon nopeuden x koordinaatti 
+        this.vx = vx;
+    }
+    
+    public void setPalloVY(float vy){
+        // asetetaan pallon nopeuden y koordinaatti 
+        this.vy = vy;
+    }
+    
+    public void setPalloAX(float ax){
+        // asetetaan pallon kiihtyvyyden x koordinaatti 
+        this.ax = ax;
+    }
+    
+    public void setPalloAY(float ay){
+        // asetetaan pallon kiihtyvyyden y koordinaatti 
+        this.ay = ay;
+    }
+    public String getPalloVari(){
+        // annetaan pallon väri ulos
+        return this.vari;
+    }
+    
+    public void setPalloVari(String vari){
+        // asetetaan pallon väri
+        this.vari = vari;
+    }
+    
+    public int getPalloVaraus(){
+        // annetaan ulos pallon coulombin varaus
+        return this.varaus;
+    }
+    
+    public void setPalloVaraus(int varaus){
+        // asetetaan pallon coulombin varaus
+        this.varaus = varaus;
+    }    
     
     @Override
     public String toString() {
-        return this.x+", "+this.y+"  "+this.charge+"  "+this.color;
+        return "PALLO x: "+this.x+",y: "+this.y+"  "+this.varaus+"  "+this.vari;
     }    
 }    
 
