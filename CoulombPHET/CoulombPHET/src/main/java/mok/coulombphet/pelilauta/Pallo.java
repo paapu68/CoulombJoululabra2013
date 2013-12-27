@@ -14,18 +14,22 @@ public class Pallo {
     // Sisältää pallon 2d paikan, 2d nopeuden, 2d kiihtyvyyden
     // massan varauksen ja värin
     // sekä metodit niiden asettamiseen ja antamiseen ulos
+    // Lyöntipallon väri on 'valkoinen' mustan pallon väri on 'musta'
+    // yksiköt m, , m/s, m/s², kg, mikro Coulomb
+    // pallon paino on n. 0.160 kg
+    // pelilauta n. 2.7m x 1.4 m
  
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private double vx;
     private double vy;
     private double ax;
     private double ay;
     private double massa; 
-    private int varaus;
+    private double varaus;
     private String vari;
 
-    public Pallo(int x, int y, double vx, double vy, double ax, double ay, 
+    public Pallo(double x, double y, double vx, double vy, double ax, double ay, 
             double massa, int varaus, String vari) {
         // xx tarkasta etta x, y 0..xx
         this.x = x;
@@ -35,16 +39,16 @@ public class Pallo {
         this.ax = ax;
         this.ay = ay;
         this.massa = massa;
-        this.varaus = varaus;
+        this.varaus = varaus*0.000001;
         this.vari = vari;
     }
 
-    public int getPalloX(){
+    public double getPalloX(){
         // pallon x koordinaatti annetaan ulos
         return this.x;
     }
     
-    public int getPalloY(){
+    public double getPalloY(){
         // pallon y koordinaatti annetaan ulos
         return this.y;
     }
@@ -68,12 +72,13 @@ public class Pallo {
         // pallon kiihtyvyyden y koordinaatti annetaan ulos
         return this.ay;
     }
-    public void setPalloX(int x){
+    
+    public void setPalloX(double x){
         // asetetaan pallon x koordinaatti 
         this.x = x;
     }
     
-    public void setPalloY(int y){
+    public void setPalloY(double y){
         // asetetaan pallon y koordinaatti
             this.y= y;
     }
@@ -97,7 +102,18 @@ public class Pallo {
         // asetetaan pallon kiihtyvyyden y koordinaatti 
         this.ay = ay;
     }
-   public double getPalloMassa(){
+    
+    public void lisaaPalloAX(double ax){
+        // lisätään pallon kiihtyvyyden x koordinaattia 
+        this.ax += ax;
+    }
+    
+    public void lisaaPalloAY(double ay){
+        // lisätääm pallon kiihtyvyyden y koordinaattia 
+        this.ay += ay;
+    }    
+    
+    public double getPalloMassa(){
         // pallon kiihtyvyyden y koordinaatti annetaan ulos
         return this.massa;
     }
@@ -115,14 +131,14 @@ public class Pallo {
         this.vari = vari;
     }
     
-    public int getPalloVaraus(){
-        // annetaan ulos pallon coulombin varaus
+    public double getPalloVaraus(){
+        // annetaan ulos pallon coulombin varaus (coulombeissa)
         return this.varaus;
     }
     
     public void setPalloVaraus(int varaus){
-        // asetetaan pallon coulombin varaus
-        this.varaus = varaus;
+        // asetetaan pallon coulombin varaus (mikrocoulombeissa)
+        this.varaus = varaus * 0.000001;
     }    
     
     @Override

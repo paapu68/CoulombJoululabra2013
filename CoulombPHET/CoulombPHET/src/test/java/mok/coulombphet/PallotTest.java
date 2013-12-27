@@ -21,8 +21,8 @@ import static org.junit.Assert.*;
  * @author mka
  */
 public class PallotTest {
-    Pallo pallo0;
-    Pallo pallo1;
+    Pallo lyontiPallo, mustaPallo, pallo0;
+   
     public PallotTest() {
     }
     
@@ -36,8 +36,9 @@ public class PallotTest {
     
     @Before
     public void setUp() {
-        pallo0 = new Pallo(2, 3, -5.0,-4.0, -3.0,-2.0, 50.0, -1,"kelt");
-        pallo1 = new Pallo(10, 20, -5.0,-4.0, -3.0,-2.0, 50.0, -1,"must");
+        lyontiPallo = new Pallo(2, 3, -5.0,-4.0, -3.0,-2.0, 50.0, -1,"valkoinen");
+        mustaPallo = new Pallo(10, 20, -5.0,-4.0, -3.0,-2.0, 50.0, -1,"musta");
+        pallo0 = new Pallo(10, 20, -5.0,-4.0, -3.0,-2.0, 50.0, -1,"punainen");
     }
     
     @After
@@ -51,13 +52,17 @@ public class PallotTest {
     // public void hello() {}
     @Test
     public void getPallotTest() {
-        Pallot pallot = new Pallot();
-        pallot.lisaaPallo(pallo1);
+        Pallot pallot = new Pallot(lyontiPallo, mustaPallo);
         pallot.lisaaPallo(pallo0);
         ArrayList<Pallo> uudetpallot = pallot.getPallot();
-        String vari0 = pallot.getPallot().get(0).getPalloVari();
-        String vari1 = pallot.getPallot().get(1).getPalloVari();        
-        assertEquals("must", vari0);
-        assertEquals("kelt", vari1);
+        String variLyontiPallo = pallot.getPallot().get(0).getPalloVari();
+        String variMustaPallo = pallot.getPallot().get(1).getPalloVari();
+        String vari0Pallo = pallot.getPallot().get(2).getPalloVari();
+        //System.out.println("ly"+variLyontiPallo);
+        //System.out.println("mu"+variMustaPallo);
+        //System.out.println("pu"+vari0Pallo);
+        assertEquals("punainen", vari0Pallo);
+        assertEquals("musta", variMustaPallo);
+        assertEquals("valkoinen", variLyontiPallo);
     }
 }

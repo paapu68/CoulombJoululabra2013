@@ -10,6 +10,10 @@ package mok.coulombphet.pelilauta;
  *
  * @author mka
  */
-public class Lyontipallo {
+public class Lyontipallo extends Pallo{
+
+    public Lyontipallo(int x, int y, double vx, double vy, double ax, double ay, double massa, int varaus, String vari) {
+        super(x, y, vx, vy, ax, ay, massa, varaus, vari);
+    }
     
 }

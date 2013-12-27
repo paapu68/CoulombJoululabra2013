@@ -34,7 +34,7 @@ public class PalloTest {
     
     @Before
     public void setUp() {
-        pallo = new Pallo(2, 3, -5.0,-4.0, -3.0,-2.0, 50.0, -1,"kelt");
+        pallo = new Pallo(0.25, 0.30, -5.0,-4.0, -3.0,-2.0, 50.0, -1,"kelt");
     }
     
     @After
@@ -48,13 +48,13 @@ public class PalloTest {
     // public void hello() {}
     @Test
     public void getPalloXtest() {
-        int vastaus = pallo.getPalloX();
-        assertEquals(2, vastaus);
+        double vastaus = pallo.getPalloX();
+        assertEquals(0.25, vastaus, 0.001);
     }
     @Test
     public void getPalloYtest() {
-        int vastaus = pallo.getPalloY();
-        assertEquals(3, vastaus);
+        double vastaus = pallo.getPalloY();
+        assertEquals(0.3, vastaus, 0.001);
     }    
     @Test
     public void getPalloVXtest() {
@@ -89,14 +89,14 @@ public class PalloTest {
     }
     @Test
     public void setPalloXtest() {
-        pallo.setPalloX(30);
-        int vastaus = pallo.getPalloX();
-        assertEquals(30, vastaus);
+        pallo.setPalloX(0.4);
+        double vastaus = pallo.getPalloX();
+        assertEquals(0.4, vastaus, 0.001);
     }    
     public void setPalloYtest() {
-        pallo.setPalloY(40);
-        int vastaus = pallo.getPalloY();
-        assertEquals(40, vastaus);
+        pallo.setPalloY(0.5);
+        double vastaus = pallo.getPalloY();
+        assertEquals(0.5, vastaus, 0.001);
     }     
     @Test
     public void setPalloVXtest() {
@@ -131,8 +131,8 @@ public class PalloTest {
     @Test
     public void setPalloVarausTest() {
         pallo.setPalloVaraus(-3);
-        int vastaus = pallo.getPalloVaraus();
-        assertEquals(-3, vastaus);
+        double vastaus = pallo.getPalloVaraus();
+        assertEquals(-0.000003, vastaus,0.00000001);
     }   
     @Test
     public void setPalloVariTest() {
