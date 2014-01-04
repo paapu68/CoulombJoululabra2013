@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import mok.coulombphet.peli.Biljardipeli;
+import mok.coulombphet.pelilauta.Keppi;
+import mok.coulombphet.pelilauta.Pallo;
 import mok.coulombphet.pelilauta.Pallot;
 
 public class NappaimistonKuuntelija implements KeyListener {
@@ -27,15 +29,31 @@ public class NappaimistonKuuntelija implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (biljardipeli.)
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            this.biljardipeli.getPallot().kierraVastapaivaan();
-            System.out.println("VASTA");
-        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            this.biljardipeli.getPallot().kierraMyotapaivaan();
-            System.out.println("MYÖTÄ");
+        Pallo lyontipallo;
+        Keppi keppi;
+        if (!biljardipeli.getPallotLiikkuu()){
+          if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+              this.biljardipeli.getKeppi().kierraVastapaivaan();
+              System.out.println("VASTA");
+          } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+              this.biljardipeli.getKeppi().kierraMyotapaivaan();
+              System.out.println("MYÖTÄ");
+          } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+              this.biljardipeli.getKeppi().viritaKeppia();
+              System.out.println("VIRITÄ");
+          } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+              this.biljardipeli.getKeppi().puraKeppia();
+              System.out.println("PURA");
+          } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+              System.out.println("AMMU");
+              
+              lyontipallo = this.biljardipeli.getPallot().getLyontiPallo();
+              keppi = this.biljardipeli.getKeppi();
+              keppi.iske(lyontipallo);
+              this.biljardipeli.setPallotLiikkuu(Boolean.TRUE);
+          }
         }
-
+        
         component.repaint();
     }
 

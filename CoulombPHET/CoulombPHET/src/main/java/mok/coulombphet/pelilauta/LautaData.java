@@ -18,6 +18,7 @@ public class LautaData {
     final Double minLautaX, minLautaY;
     final Double maxLautaX, maxLautaY; 
     final Double pallonHalkaisija;
+    final Double kepinPituus;
     final Double reianHalkaisija;
     final double scale;
    
@@ -25,6 +26,7 @@ public class LautaData {
     final int pixelOffsetY;
     final int pallonHalkaisijaPixel, reianHalkaisijaPixel;
     final int pituusXpixel, pituusYpixel;
+    
     
     public LautaData(){
         // pixeleissä min x koordinaatti on 
@@ -35,6 +37,7 @@ public class LautaData {
         this.maxLautaX = 1.4;
         this.maxLautaY = 2.7;
         this.pallonHalkaisija = 0.0517;
+        this.kepinPituus = 4.0 * this.pallonHalkaisija;
         this.reianHalkaisija = this.pallonHalkaisija * 1.6;
         this.scale = 200.0;
         this.pixelOffsetX = 50;
@@ -73,6 +76,10 @@ public class LautaData {
     
     public double getPallonHalkaisija(){
         return this.pallonHalkaisija;
+    }
+    
+    public double getKepinPituus(){
+        return this.kepinPituus;
     }
     
     public int getpixelOffsetX(){

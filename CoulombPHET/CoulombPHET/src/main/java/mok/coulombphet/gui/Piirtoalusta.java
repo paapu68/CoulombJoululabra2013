@@ -1,11 +1,14 @@
 package mok.coulombphet.gui;
 
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import javax.swing.JPanel;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import mok.coulombphet.peli.Biljardipeli;
+import mok.coulombphet.pelilauta.Keppi;
 import mok.coulombphet.pelilauta.LautaData;
 import mok.coulombphet.pelilauta.Pallo;
 import mok.coulombphet.pelilauta.Pallot;
@@ -37,6 +40,7 @@ public class Piirtoalusta extends JPanel implements Paivitettava{
         super.paintComponent(g);
         this.piirraPallot(g);
         this.piirraReiat(g);
+        this.piirraKeppi(g);
     }       
     
     public int lautaDouble2PixelX(double x){
@@ -100,11 +104,45 @@ public class Piirtoalusta extends JPanel implements Paivitettava{
                     lautadata.getreianHalkaisijaPixel()
             );
         }
+    }    
+
+    public void piirraKeppi(Graphics g) {
+        // Lyontitilanteessa piirretään keppi
+        Pallo lyontipallo;
+        Keppi keppi;
+        double x1, x2, y1, y2;
+        int pixelx1, pixelx2, pixely1, pixely2;
+        
+        if (this.biljardipeli.getJatka() && 
+                !this.biljardipeli.getPallotLiikkuu()) {
+            keppi = this.biljardipeli.getKeppi();
+            lyontipallo = this.biljardipeli.getPallot().getLyontiPallo();
+            //keppi = this.biljardipeli.
+            //double dx1 = -lautadata.getKepinPituus() - keppi.getPoikkeama();
+            //double dx2 = +lautadata.getKepinPituus() + keppi.getPoikkeama();
+            double dx1 = -lautadata.getKepinPituus()/2.0 
+                    - keppi.getPoikkeama() 
+                    - this.lautadata.getPallonHalkaisija()/2;
+            double dx2 = this.lautadata.getPallonHalkaisija()/2;
+            x1 = lyontipallo.getPalloX() + 
+                    dx1 * Math.cos(keppi.getKulmaRadian());                
+            y1 = lyontipallo.getPalloY() + 
+                    dx1 * Math.sin(keppi.getKulmaRadian());
+            x2 = lyontipallo.getPalloX() + 
+                    dx2 * Math.cos(keppi.getKulmaRadian());                      
+            y2 = lyontipallo.getPalloY() + 
+                    dx2 * Math.sin(keppi.getKulmaRadian()); 
+                           
+            pixelx1 = this.lautaDouble2PixelX(x1);
+            pixely1 = this.lautaDouble2PixelY(y1);
+            pixelx2 = this.lautaDouble2PixelX(x2);
+            pixely2 = this.lautaDouble2PixelY(y2);
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setColor(Color.gray);
+            g2.setStroke(new BasicStroke(3));
+            g2.drawLine(pixelx1, pixely1, pixelx2, pixely2);           
+        }
     }        
-    
-
-     
-
 }
     
     

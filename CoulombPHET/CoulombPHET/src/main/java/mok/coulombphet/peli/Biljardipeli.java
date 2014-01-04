@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 import mok.coulombphet.pelilauta.LautaData;
 import javax.swing.Timer;
 import mok.coulombphet.gui.Paivitettava;
+import mok.coulombphet.pelilauta.Keppi;
 
 /**
  *
@@ -31,6 +32,7 @@ public class Biljardipeli extends Timer implements ActionListener {
     private Reiat reiat;
     private Seina seina;
     private Pallo lyontipallo, mustapallo;
+    private Keppi keppi;
     private Paivitettava paivitettava;
     private Boolean jatka, pallotliikkuu;
     private lisaaKiihtyvyydet lisaakiihtyvyydet;
@@ -48,11 +50,12 @@ public class Biljardipeli extends Timer implements ActionListener {
         this.nopeusVerlet= new VelocityVerlet(this.lautadata.getDT());
         this.seina = new Seina();
         this.reiat = new Reiat();
+        this.keppi = new Keppi();
         
         this.jatka = true;       
         this.pallotliikkuu = false;
         
-        this.lyontipallo = new Pallo(0.7, 2.0, 0.0,0.0, 0.0,0.0, 0.16, 50,"valkoinen");
+        this.lyontipallo = new Pallo(0.7, 2.0, 0.0,0.0, 0.0,0.0, 0.16, 10,"valkoinen");
         this.mustapallo = new Pallo(0.7, 1.0, 0.0, 0.0, 0.0,0.0, 0.16, -20,"musta");
         this.pallot = new Pallot(lyontipallo, mustapallo, 
                 lautadata.getPallonHalkaisija());
@@ -63,8 +66,9 @@ public class Biljardipeli extends Timer implements ActionListener {
         
         while (this.jatka){
           // ammutaan lyöntipallo
-            
-          this.pallotliikkuu = true;
+          setDelay(20);  
+          //System.out.println("Jatketaan");  
+          //this.pallotliikkuu = true;
           while (this.pallotliikkuu) {
             this.pallot.nollaaKiihtyvyydet();
             lisaakiihtyvyydet.lisaaCoulombKiihtyvyydetBiljardiPallot(this.pallot);
@@ -99,6 +103,10 @@ public class Biljardipeli extends Timer implements ActionListener {
         return this.pallot;
     }
     
+    public Keppi getKeppi(){
+        return this.keppi;
+    }   
+    
     public Reiat getReiat(){
         return this.reiat;
     }
@@ -107,13 +115,21 @@ public class Biljardipeli extends Timer implements ActionListener {
         return this.pallotliikkuu;
     }
     
+    public void setPallotLiikkuu(Boolean pallotliikkuu){
+        this.pallotliikkuu = pallotliikkuu;
+    }
+    
+    public Boolean getJatka(){
+        return this.jatka;
+    }
+    
     public void setPaivitettava(Paivitettava paivitettava) {
         this.paivitettava = paivitettava;
     }
     
     @Override
     public void actionPerformed(ActionEvent ae) {  
-        System.out.println("Pelissä action");
+        //System.out.println("Pelissä action");
         paivitettava.paivita();
         //setDelay(100);
     }

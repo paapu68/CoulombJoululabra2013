@@ -18,13 +18,12 @@ public class Pallot {
     
     private ArrayList<Pallo> pallot;  
     private double halkaisija;
-    private double kulma;
+    
 
     public Pallot(Pallo lyontiPallo, Pallo mustaPallo, double halkaisija) {
         // konstruktorissa asetetaan lyöntipallo jonon ensimmäiseksi ja 
         // musta pallo toiseksi.
         // pallot ovat samankokoisia, halkaisija on halkaisija
-        this.kulma = 90.0;
         this.pallot = new ArrayList<Pallo>();
         if ("valkoinen" == lyontiPallo.getPalloVari()) { 
             this.pallot.add(lyontiPallo);
@@ -47,6 +46,14 @@ public class Pallot {
 
     public ArrayList<Pallo> getPallotArray() {
         return this.pallot;
+    }
+    
+    public Pallo getLyontiPallo() {
+        return this.getPallotArray().get(0);
+    }
+    
+    public Pallo getMustaPallo() {
+        return this.getPallotArray().get(1);
     }
     
     public double getHalkaisija() {
@@ -98,24 +105,7 @@ public class Pallot {
 
         }
     }
-    
-    public void kierraVastapaivaan() {
-        // lyontipallon lähtösuunta kierretään vastapaivaan
-        this.kulma = this.kulma + 1.0;
-        if (this.kulma > 360.0){
-            this.kulma = this.kulma - 360.0;
-        }
-    }
-    
-    public void kierraMyotapaivaan() {
-        // lyontipallon lähtösuunta kierretään myötäpäivään
-        this.kulma = this.kulma - 1.0;
-        if (this.kulma < 0.0){
-            this.kulma = this.kulma + 360.0;
-        }
-    }
-    
-    
+        
     @Override
     public String toString() {
         // palautetaan vain värit
