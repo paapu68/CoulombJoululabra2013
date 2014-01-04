@@ -12,14 +12,11 @@ import mok.coulombphet.pelilauta.Pallo;
 import mok.coulombphet.pelilauta.Pallot;
 
 /**
- *
- * @author mka
+ * Päivitetään pallojen paikat ja nopeudet
+ * kiihtyvyydet saadaan voimista (a=F/m)
+ * Aika kuluu hyppayksin dt (sekunteina).
  */
 public class VelocityVerlet {
-    // päivitetään pallojen paikat ja nopeudet
-    // kiihtyvyydet saadaan voimista (a=F/m)
-    // Aika kuluu hyppayksin dt (sekunteina).
-    
     private double dt;
     private double maxSiirtyma;
     
@@ -27,11 +24,14 @@ public class VelocityVerlet {
         this.dt = dt;
         this.maxSiirtyma = -1.0;
     }
+    /**
+     * Päivitetään pallojen paikat ja nopeudet
+     * velocity-verlet algoritmin avulla
+     * @see http://en.wikipedia.org/wiki/Verlet_integration
+     * @param pallot näiden paikkoja ja nopeuksia muutetaan 
+     */
     public void PaivitaVelocityVerlet(Pallot pallot) {
-        // päivitetään pallojen paikat ja nopeudet
-        // kiihtyvyydet saadaan voimista (NewtonII: a=F/m)
-        // velocity-verlet algoritmi selitetty
-        // http://en.wikipedia.org/wiki/Verlet_integration        
+        
         
         double dx, dy, d2;
         double siirtyma;
@@ -65,10 +65,13 @@ public class VelocityVerlet {
         }
     }
     
+    /**
+     * Palauttaa pallojen jonosta suurimman siirtymän, 
+     * eli kuinka paljon pallo on maksimissaan liikkunut aika-askelten
+     * välillä.
+     * @return suurin pallon liikkuma matka
+     */
     public double getMaxSiirtyma(){
-        // palauttaa pallojen joukosta suurimman siirtymän, 
-        // eli kuinka paljon pallo on maksimissaan liikkunut aika-askelten
-        // välillä
         return this.maxSiirtyma;
     }
     

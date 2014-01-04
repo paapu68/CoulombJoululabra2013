@@ -7,13 +7,10 @@
 package mok.coulombphet.pelilauta;
 
 /**
- *
- * @author mka
+ * Tähän luokkaan talletetaan pelilautaan liittyvät mitta yms tiedot.
+ * @see http://en.wikipedia.org/wiki/Billiard_table
  */
 public class LautaData {    
-    // Tähän luokkaan talletetaan pelilautaan liittyvät mitta yms tiedot.
-    // http://en.wikipedia.org/wiki/Billiard_table
-    
     private final double dt;
     final Double minLautaX, minLautaY;
     final Double maxLautaX, maxLautaY; 
@@ -29,8 +26,6 @@ public class LautaData {
     
     
     public LautaData(){
-        // pixeleissä min x koordinaatti on 
-        // this.pixelOffsetX +  int(minLautaX * scale)
         this.dt = 0.0000001;  // aika-askel
         this.minLautaX = 0.0;
         this.minLautaY = 0.0;
@@ -110,16 +105,26 @@ public class LautaData {
         return this.scale;
     }
     
+    /**
+    * siirrytään reaalimaailman koordinaateista 
+    * piirrettävän pelilaudan koordinaatteihin
+    * @param x reaalimaailman x koordinaatti
+    * @return pelilaudan x pixeli koordinaatti
+    */
     public int lautaDouble2PixelX(double x){
-        // siirrytään reaalimaailman koordinaateista 
-        // piirrettävän pelilaudan koordinaatteihin
         Double pixelXdouble;
         pixelXdouble = this.getpixelOffsetX()+
                 this.getScale() * (x-this.getMinLautaX());     
         return pixelXdouble.intValue();
     }
     
-        public int lautaDouble2PixelY(double y){
+    /**
+    * siirrytään reaalimaailman koordinaateista 
+    * piirrettävän pelilaudan koordinaatteihin
+    * @param y reaalimaailman y koordinaatti
+    * @return pelilaudan y pixeli koordinaatti
+    */
+    public int lautaDouble2PixelY(double y){
         // siirrytään reaalimaailman koordinaateista 
         // piirrettävän pelilaudan koordinaatteihin
         Double pixelYdouble;

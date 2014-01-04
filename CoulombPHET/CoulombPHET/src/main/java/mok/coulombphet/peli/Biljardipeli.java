@@ -24,8 +24,9 @@ import mok.coulombphet.gui.Paivitettava;
 import mok.coulombphet.pelilauta.Keppi;
 
 /**
- *
- * @author mka
+ * Biljardipelin pyörityslogiikkaa, lisäksi metodit joilla saadaan
+ * kaivettua pelin osia.
+ * 
  */
 public class Biljardipeli extends Timer implements ActionListener {
     private Pallot pallot;
@@ -73,11 +74,8 @@ public class Biljardipeli extends Timer implements ActionListener {
             this.pallot.nollaaKiihtyvyydet();
             lisaakiihtyvyydet.lisaaCoulombKiihtyvyydetBiljardiPallot(this.pallot);
             nopeusVerlet.PaivitaVelocityVerlet(this.pallot);
-
             seina.VaihdaLiikemaara(this.pallot);
-            
             reiat.tapaNormiPallot(this.pallot);
-            
             jatka = reiat.tarkastaPallo(this.mustapallo);
             
             if (!reiat.tarkastaPallo(this.lyontipallo)){
@@ -85,15 +83,6 @@ public class Biljardipeli extends Timer implements ActionListener {
                 this.pallot.arvoLyontiPallonPaikka(0, 0, 
                         lautadata.getMaxLautaX(), lautadata.getMaxLautaY(), 0.20);
             } 
-            
-       
-            
-            // ohjelmakoodi
-            //System.out.println("xL:"+String.valueOf(lyontipallo.getPalloX()));
-            //System.out.println("yL:"+String.valueOf(lyontipallo.getPalloY()));
-   
-            //System.out.println("xM:"+String.valueOf(mustapallo.getPalloX()));
-            //System.out.println("yM:"+String.valueOf(mustapallo.getPalloY()));
           }
         }  
         System.out.println("Lopetetaan");

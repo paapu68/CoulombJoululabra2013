@@ -8,7 +8,8 @@ package mok.coulombphet.gui;
 
 /**
  *
- * @author mka
+ * Interface-idea otettu Ohjasta.
+ * Interface vaatii päivityksen mukanaolon.
  */
 public interface Paivitettava {
     void paivita();

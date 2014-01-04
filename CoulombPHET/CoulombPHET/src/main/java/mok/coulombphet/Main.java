@@ -8,7 +8,9 @@ package mok.coulombphet;
 
 /**
  *
- * @author mka
+ * Biljardipelin main luokka joka käynnistää 
+ * käyttöliittymän ja kytkee biljardipelin siihen.
+ * Käynnistää biljardipelin.
  */
 import mok.coulombphet.peli.Biljardipeli;
 import javax.swing.SwingUtilities;

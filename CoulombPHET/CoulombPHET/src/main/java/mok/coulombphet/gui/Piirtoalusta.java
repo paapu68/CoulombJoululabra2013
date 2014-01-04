@@ -16,10 +16,14 @@ import mok.coulombphet.pelilauta.Reiat;
 import mok.coulombphet.pelilauta.Seina;
 
 
+/**
+ * Alku varastettu kurssin Ohja materiaaleista
+ * Piirretään pallot, reiät ja mahdollisesti lyöntikeppi.
+ * xxx ei tehty pelitilanne
+ */
 
 public class Piirtoalusta extends JPanel implements Paivitettava{
-    // Pohja kopioitu kurssilta ohja
-    // piirtää pallot,  kohtaan x, y
+    
     
     private Biljardipeli biljardipeli;
     private LautaData lautadata = new LautaData();
@@ -43,30 +47,15 @@ public class Piirtoalusta extends JPanel implements Paivitettava{
         this.piirraKeppi(g);
     }       
     
-    public int lautaDouble2PixelX(double x){
-        // siirrytään reaalimaailman koordinaateista 
-        // piirrettävän pelilaudan koordinaatteihin
-        Double pixelXdouble;
-        pixelXdouble = lautadata.getpixelOffsetX()+
-                lautadata.getScale() * (x-lautadata.getMinLautaX());     
-        return pixelXdouble.intValue();
-    }
-    
-    public int lautaDouble2PixelY(double y){
-        // siirrytään reaalimaailman koordinaateista 
-        // piirrettävän pelilaudan koordinaatteihin
-        Double pixelYdouble;
-        pixelYdouble = lautadata.getpixelOffsetY()+
-                lautadata.getScale() * (y-lautadata.getMinLautaY());
-        return pixelYdouble.intValue();
-    }    
-        
+    /**
+     * Piirretään pallot pelilaudalle
+     * @param g grafiikka 
+     */
     public void piirraPallot(Graphics g) {
-        // Piirretään pallot pelilaudalle
         ArrayList<Pallo> p1 = this.biljardipeli.getPallot().getPallotArray();
         for (Pallo pallo : p1) {   
-            Integer pixelX = this.lautaDouble2PixelX(pallo.getPalloX());
-            Integer pixelY = this.lautaDouble2PixelY(pallo.getPalloY());
+            Integer pixelX = lautadata.lautaDouble2PixelX(pallo.getPalloX());
+            Integer pixelY = lautadata.lautaDouble2PixelY(pallo.getPalloY());
        
             switch (pallo.getPalloVari()) {
                 case "valkoinen":
@@ -89,25 +78,30 @@ public class Piirtoalusta extends JPanel implements Paivitettava{
         }
     }
     
-    public void piirraReiat(Graphics g) {
-        // Piirretään reiat pelilaudalle
+    /**
+     * Piirretään reiat pelilaudalle
+     * @param g grafiikka 
+     */
+    public void piirraReiat(Graphics g) {        
         ArrayList<Double> reiatX, reiatY;
         reiatX = this.biljardipeli.getReiat().getReiatX();
         reiatY = this.biljardipeli.getReiat().getReiatY();
         g.setColor(Color.PINK);
         for(int i = 0; i < reiatX.size(); i = i + 1) {
-            g.fillOval(this.lautaDouble2PixelX(reiatX.get(i))-
+            g.fillOval(lautadata.lautaDouble2PixelX(reiatX.get(i))-
                     lautadata.getreianHalkaisijaPixel()/2,
-                    this.lautaDouble2PixelY(reiatY.get(i))-
+                    lautadata.lautaDouble2PixelY(reiatY.get(i))-
                     lautadata.getreianHalkaisijaPixel()/2,
                     lautadata.getreianHalkaisijaPixel(),
                     lautadata.getreianHalkaisijaPixel()
             );
         }
     }    
-
+/**
+ * Lyontitilanteessa piirretään keppi
+ * @param g grafiikka
+ */
     public void piirraKeppi(Graphics g) {
-        // Lyontitilanteessa piirretään keppi
         Pallo lyontipallo;
         Keppi keppi;
         double x1, x2, y1, y2;
@@ -133,10 +127,10 @@ public class Piirtoalusta extends JPanel implements Paivitettava{
             y2 = lyontipallo.getPalloY() + 
                     dx2 * Math.sin(keppi.getKulmaRadian()); 
                            
-            pixelx1 = this.lautaDouble2PixelX(x1);
-            pixely1 = this.lautaDouble2PixelY(y1);
-            pixelx2 = this.lautaDouble2PixelX(x2);
-            pixely2 = this.lautaDouble2PixelY(y2);
+            pixelx1 = lautadata.lautaDouble2PixelX(x1);
+            pixely1 = lautadata.lautaDouble2PixelY(y1);
+            pixelx2 = lautadata.lautaDouble2PixelX(x2);
+            pixely2 = lautadata.lautaDouble2PixelY(y2);
             Graphics2D g2 = (Graphics2D) g;
             g2.setColor(Color.gray);
             g2.setStroke(new BasicStroke(3));

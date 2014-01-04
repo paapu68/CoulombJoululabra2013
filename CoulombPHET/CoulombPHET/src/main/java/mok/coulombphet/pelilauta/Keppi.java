@@ -7,12 +7,11 @@
 package mok.coulombphet.pelilauta;
 
 /**
- *
- * @author mka
+ * Toiminnot jotka liittyvät biljardipelin lyöntikeppiin.
+ * Kepin piirtäminen on kuitenkin piirtoalusta luokassa.  
+ * 
  */
-public class Keppi {
-    // toiminnot jotka liittyvät biljardipelin lyöntikeppiin.
-    // Kepin piirtäminen on kuitenkin piirtoalusta oliossa.    
+public class Keppi {  
     private double kulma, kulmaAskel;
     private double poikkeama, poikkeamaAskel;
     private double jousivakio;
@@ -21,7 +20,7 @@ public class Keppi {
     public Keppi(){
         this.kulma = 270.0;
         this.kulmaAskel = 1.0;
-        this.poikkeama = 0.0;
+        this.poikkeama = 0.1;
         this.poikkeamaAskel = 0.001;
         //this.jousivakio = 10;
         this.jousivakio = 10000000;
@@ -35,43 +34,57 @@ public class Keppi {
         return this.poikkeama;
     }
     
+    /**
+     * voima newtoneissa jolla kepillä lyödään palloa
+     * @return voima 
+     */
     public double getVoima(){
-        // voima newtoneissa jolla kepillä lyödään palloa
         return -this.jousivakio*this.poikkeama;
     }
     
-    public void kierraVastapaivaan() {
-        // lyontipallon lähtösuunta kierretään vastapaivaan
+    /**
+     * lyontipallon lähtösuunta kierretään vastapaivaan
+     */
+    public void kierraVastapaivaan() {        
         this.kulma = this.kulma + this.kulmaAskel;
         if (this.kulma > 360.0){
             this.kulma = this.kulma - 360.0;
         }
     }
     
+     /**
+     * lyontipallon lähtösuunta kierretään myötäpäivään
+     */
     public void kierraMyotapaivaan() {
-        // lyontipallon lähtösuunta kierretään myötäpäivään
         this.kulma = this.kulma - this.kulmaAskel;
         if (this.kulma < 0.0){
             this.kulma = this.kulma + 360.0;
         }
     }
     
+    /**
+     *  lisätään lyöntivoimaa, jolla valkoista palloa lyödään
+     */
     public void viritaKeppia(){
-        // lisätään lyöntivoimaa
-        // samalla keppi siirtyy kuvassa
+
         if (this.poikkeama < lautadata.kepinPituus){
             this.poikkeama = this.poikkeama + this.poikkeamaAskel; 
         }
     }
     
+   /**
+     *  vähennetään lyöntivoimaa, jolla valkoista palloa lyödään
+     */    
     public void puraKeppia(){
-        // vähennetään lyöntivoimaa
-        // samalla siirretään keppia kuvassa
         if (this.poikkeama > this.poikkeamaAskel){
             this.poikkeama = this.poikkeama - this.poikkeamaAskel; 
         }
     }
     
+    /**
+     * Asetetaan pallolle kepin iskua vastaava lähtönopeus
+     * @param pallo johon kepin isku kohdistuu
+     */
     public void iske(Pallo pallo){
         // f=m*a = m*dv/dt
         // dv=f*dt/m
@@ -79,14 +92,6 @@ public class Keppi {
                 this.getVoima()*Math.cos(this.getKulmaRadian()));
         pallo.setPalloVY(-lautadata.getDT()/pallo.getPalloMassa()*
                 this.getVoima()*Math.sin(this.getKulmaRadian()));
-        //pallo.setPalloVX(100);
-        //System.out.println(lautadata.getDT());
-        //System.out.println(pallo.getPalloMassa());
-        //System.out.println(this.getVoima());
-        //System.out.println(Math.cos(this.getKulmaRadian()));
-        //System.out.println(pallo.getPalloVX());
-        //System.out.println(lautadata.getDT()*this.getVoima()*Math.cos(this.getKulmaRadian()));
-        //System.exit(1);
     }
     
     

@@ -7,6 +7,11 @@ import javax.swing.*;
 import mok.coulombphet.peli.Biljardipeli;
 import mok.coulombphet.pelilauta.LautaData;
 
+/**
+ * Käyttöliittymä jossa tehdään alue pelilautaa varten
+ * ja kytketään näppäimistökuuntelija alueeseen. 
+ * 
+ */
 public class Kayttoliittyma implements Runnable {
 
     private JFrame frame;
@@ -18,12 +23,8 @@ public class Kayttoliittyma implements Runnable {
     public Kayttoliittyma(Biljardipeli biljardipeli){
         this.biljardipeli = biljardipeli;
         this.lautadata = new LautaData();
-        //System.out.println("RUN0");
-        //System.exit(1);
     }
-    
-
-    
+        
     @Override
     public void run() {
         frame = new JFrame("Biljardi");

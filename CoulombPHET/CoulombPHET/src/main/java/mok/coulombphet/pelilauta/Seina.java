@@ -10,13 +10,13 @@ import java.util.ArrayList;
 
 /**
  *
- * @author mka
+ * Pelilaudan seinien rajat annetaan reaalimaailmassa.
+ * Lisäksi metodi kimmauttamaan pallo seinästä
  */
 public class Seina {
-    // Seinan rajat annetaan reaalimaailmassa.
     private final double alax, alay, ylax, ylay;
     private LautaData lautadata = new LautaData();
-    
+
     public Seina(){
         this.alax = lautadata.minLautaX;
         this.alay = lautadata.getMinLautaY();
@@ -24,9 +24,12 @@ public class Seina {
         this.ylay = lautadata.getMaxLautaY();
     }
     
-     public void VaihdaLiikemaara(Pallot pallot) {
-        // Jos pallo on lähellä seinää sen 
-        // nopeus vaihdetaan vastakkaiseksi.               
+/**
+ * Jos pallo on lähellä seinää sen 
+ * nopeus vaihdetaan vastakkaiseksi.  
+ * @param pallot tutkittavat pallot 
+ */
+    public void VaihdaLiikemaara(Pallot pallot) {             
         
         ArrayList<Pallo> p1 = pallot.getPallotArray();
         for (Pallo pallo1 : p1) {

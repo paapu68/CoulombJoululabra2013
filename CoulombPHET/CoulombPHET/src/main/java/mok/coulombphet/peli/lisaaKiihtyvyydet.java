@@ -11,33 +11,34 @@ import mok.coulombphet.pelilauta.Pallo;
 import mok.coulombphet.pelilauta.Pallot;
 
 /**
- *
- * @author mka
+ * Pallojen keskinäisistä voimista aiheutuvat kiihtyvyydet
+ * lisätään palloihin. 
+ * kiihtyvyydet aiheutuvat:
+ * 1) pallojen keskinäisistä coulombin voimista
+ * (lisaaCoulombKiihtyvyydetBiljardiPallot)
+ * 2) pallojen välisestä hard-core repulsiosta, joka estää pallojen
+ * menemisen päällekkäin
+ * (xxx funktio)
+ * 3) kitkasta joka pysäyttää liikkeen
+ * (xxx funktio)  
  */
 
 public class lisaaKiihtyvyydet {
-    // pallojen keskinäisistä voimista aiheutuvat kiihtyvyydet
-    // lisätään palloihin. 
-    // kiihtyvyydet aiheutuvat
-    // 1) pallojen keskinäisistä coulombin voimista
-    // (lisaaCoulombKiihtyvyydetBiljardiPallot)
-    // 2) pallojen välisestä hard-core repulsiosta, joka estää pallojen
-    // menemisen pääleekkäin
-    // (xxx funktio)
-    // 3) kitkasta joka pysäyttää liikkeen
-    // (xxx funktio)
-    
+
     public lisaaKiihtyvyydet() {
         // dummy
     }
    
+    /**
+     * Lisätään pallojen kiihtyvyyksiin
+     * pallojen keskinäisistä Coulombin
+     * voimista aiheutuvat kiihtyvyydet
+     * ax = coulombsConstant * q1 * q2 * dx / (r² * mass)
+     * ay = coulombsConstant * q1 * q2 * dy / (r² * mass)
+     * yksiköt coulombi, metri, kilogramma
+     * @param pallot Pallot jotka vuorovaikuttavat keskenään.
+     */
     public void lisaaCoulombKiihtyvyydetBiljardiPallot(Pallot pallot) {
-        // lisätään pallojen kiihtyvyyksiin
-        // pellojen keskinäisistä coulombin
-        // voimista aiheutuvat kiihtyvyydet
-        // ax = coulombsConstant * q1 * q2 * dx / (r² * mass)
-        // ay = coulombsConstant * q1 * q2 * dy / (r² * mass)
-        // units in coulomb, meter, kilogram
         double dx, dy, d2;
         final double coulombsConstant = 8.987551787368*1000000000;
         

@@ -8,9 +8,14 @@ import mok.coulombphet.pelilauta.Keppi;
 import mok.coulombphet.pelilauta.Pallo;
 import mok.coulombphet.pelilauta.Pallot;
 
+/**
+ *  Otettu kurssin Ohja materiaaleista
+ *  kuunnellaan näppäimiä jotta saadaan lyötyä valkoista palloa
+ *  ja käänneltyä lyöntikeppiä sekä säädeltyä lyöntivoimaa.
+ * 
+ */
 public class NappaimistonKuuntelija implements KeyListener {
-    // varastettu kurssin Ohja materiaaleista
-    // kuunnellaan näppäimiä jotta saadaan lyötyä valkoista palloa
+    
     private Component component;
     private Biljardipeli biljardipeli;
 

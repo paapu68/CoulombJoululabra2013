@@ -10,19 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author mka
+ * Biljardipöydän reikien koordinaatit kahdessa ArrayList:ssä
+ * Toisessa x koordinaatit toisessa y.
+ * Lisäksi metodeja joissa tutkitaan onko pallo mennyt reikään.
  */
 public final class Reiat {
+    /**
+     * Alustetaan 6 reikää paikoilleen
+     * @param reiatX reikien x koordinaatit reaaliavaruudessa
+     * @param reiatY reikien y koordinaatit reaaliavaruudessa
+     */
     private ArrayList<Double> reiatX = new ArrayList<Double>();
-    private ArrayList<Double> reiatY = new ArrayList<Double>();
-    private ArrayList<Integer> reiatXpixel = new ArrayList<Integer>();
-    private ArrayList<Integer> reiatYpixel = new ArrayList<Integer>();    
-    private final double reianSade = 0.05;
+    private ArrayList<Double> reiatY = new ArrayList<Double>();   
     private LautaData lautadata = new LautaData();
     
-    public Reiat(){
-        // alustetaan reiät paikoilleen        
+    
+    public Reiat(){      
         this.setReikaXY(0.0, 0.0);
         this.setReikaXY(lautadata.maxLautaX, 0.0);
         this.setReikaXY(0.0, lautadata.maxLautaY/2.0);
@@ -44,8 +47,12 @@ public final class Reiat {
         return this.reiatY;
     }
     
+    /**
+     * Jos normipallo (eli ei valkoinen lyöntipallo, eikä musta)
+     * on mennyt reikään niin se tapetaan pois
+     * @param pallot biljardipallot 
+     */
     public void tapaNormiPallot(Pallot pallot) {
-        // jos normi pallo on reiässä se tapetaan pois
         ArrayList<Pallo> p1 = pallot.getPallotArray();
         ArrayList<Integer> tapa = new ArrayList<Integer>();
         Boolean found;
@@ -57,7 +64,7 @@ public final class Reiat {
             for(int j = 0; j <= this.reiatX.size()-1 ; j = j + 1) {
                 d = Math.sqrt((x-this.reiatX.get(j))*(x-this.reiatX.get(j))
                 +(y-this.reiatY.get(j))*(y-this.reiatY.get(j)));
-                if (d < this.reianSade) {
+                if (d < lautadata.reianHalkaisija) {
                     tapa.add(i);
                 }
             }             
@@ -67,9 +74,12 @@ public final class Reiat {
         }
     }
     
+    /**
+     * Tutkitaan onko pallo mennyt reikään.
+     * @param pallo turkittava pallo
+     * @return jos pallo on reiässä palautetaan false, muuten true
+     */
     public Boolean tarkastaPallo(Pallo pallo) {
-        // jos pallo on reiässä palautetaan false, muuten true
-
         double x, y, d;
         boolean jatka = true;
         
@@ -78,12 +88,10 @@ public final class Reiat {
         for(int j = 0; j <= this.reiatX.size()-1 ; j = j + 1) {
             d = Math.sqrt((x-this.reiatX.get(j))*(x-this.reiatX.get(j))
             +(y-this.reiatY.get(j))*(y-this.reiatY.get(j)));
-            if (d < this.reianSade) {
+            if (d < lautadata.reianHalkaisija) {
                 jatka = false;
             }
         }   
         return jatka;
     }    
-    
-    
 }

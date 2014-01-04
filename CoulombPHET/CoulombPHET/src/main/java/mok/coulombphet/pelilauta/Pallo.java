@@ -7,18 +7,14 @@
 package mok.coulombphet.pelilauta;
 
 /**
- *
- * @author mka, copied from OHJA
+ *  Sisältää pallon 2d paikan, 2d nopeuden, 2d kiihtyvyyden
+ *  massan varauksen ja värin
+ *  sekä metodit niiden asettamiseen ja antamiseen ulos
+ *  Lyöntipallon väri on 'valkoinen' mustan pallon väri on 'musta'
+ *  yksiköt m, , m/s, m/s², kg, mikro Coulomb
+ * 
  */
 public class Pallo {
-    // Sisältää pallon 2d paikan, 2d nopeuden, 2d kiihtyvyyden
-    // massan varauksen ja värin
-    // sekä metodit niiden asettamiseen ja antamiseen ulos
-    // Lyöntipallon väri on 'valkoinen' mustan pallon väri on 'musta'
-    // yksiköt m, , m/s, m/s², kg, mikro Coulomb
-    // pallon paino on n. 0.160 kg
-    // pelilauta n. 2.7m x 1.4 m
- 
     private double x;
     private double y;
     private double vx;
@@ -29,9 +25,19 @@ public class Pallo {
     private double varaus;
     private String vari;
 
+   /**
+    *  @param x pallon x koordinaatti
+    *  @param y pallon y koordinaatti
+    *  @param vx pallon x suunnan vauhti
+    *  @param vy pallon y suunnan vauhti
+    *  @param ax pallon x suunnan kiihtyvyys
+    *  @param ay pallon y suunnan kiihtyvyys
+    *  @param massa pallon massa
+    *  @param varaus pallon varaus mikrocoulombeina
+    *  @param vari pallon väri
+    */
     public Pallo(double x, double y, double vx, double vy, double ax, double ay, 
             double massa, int varaus, String vari) {
-        // xx tarkasta etta x, y 0..xx
         this.x = x;
         this.y = y;
         this.vx = vx;
@@ -44,100 +50,89 @@ public class Pallo {
     }
 
     public double getPalloX(){
-        // pallon x koordinaatti annetaan ulos
         return this.x;
     }
     
     public double getPalloY(){
-        // pallon y koordinaatti annetaan ulos
         return this.y;
     }
     
     public double getPalloVX(){
-        // pallon nopeuden x koordinaatti annetaan ulos
         return this.vx;
     }
     
     public double getPalloVY(){
-        // pallon nopeuden y koordinaatti annetaan ulos
         return this.vy;
     }
     
     public double getPalloAX(){
-        // pallon kiihtyvyyden x koordinaatti annetaan ulos
         return this.ax;
     }
     
     public double getPalloAY(){
-        // pallon kiihtyvyyden y koordinaatti annetaan ulos
         return this.ay;
     }
     
     public void setPalloX(double x){
-        // asetetaan pallon x koordinaatti 
         this.x = x;
     }
     
     public void setPalloY(double y){
-        // asetetaan pallon y koordinaatti
             this.y= y;
     }
     
     public void setPalloVX(double vx){
-        // asetetaan pallon nopeuden x koordinaatti 
         this.vx = vx;
     }
     
     public void setPalloVY(double vy){
-        // asetetaan pallon nopeuden y koordinaatti 
         this.vy = vy;
     }
     
     public void setPalloAX(double ax){
-        // asetetaan pallon kiihtyvyyden x koordinaatti 
         this.ax = ax;
     }
     
     public void setPalloAY(double ay){
-        // asetetaan pallon kiihtyvyyden y koordinaatti 
         this.ay = ay;
     }
     
+    /**
+    * lisätään pallon kiihtyvyyden x koordinaattia 
+    */    
     public void lisaaPalloAX(double ax){
-        // lisätään pallon kiihtyvyyden x koordinaattia 
         this.ax += ax;
     }
     
+    /**
+    * lisätään pallon kiihtyvyyden y koordinaattia 
+    */
     public void lisaaPalloAY(double ay){
-        // lisätääm pallon kiihtyvyyden y koordinaattia 
         this.ay += ay;
     }    
     
     public double getPalloMassa(){
-        // pallon kiihtyvyyden y koordinaatti annetaan ulos
         return this.massa;
     }
     public void setPalloMassa(double massa){
-        // asetetaan pallon massa
         this.massa = massa;
     }    
     public String getPalloVari(){
-        // annetaan pallon väri ulos
         return this.vari;
     }
     
     public void setPalloVari(String vari){
-        // asetetaan pallon väri
         this.vari = vari;
     }
     
     public double getPalloVaraus(){
-        // annetaan ulos pallon coulombin varaus (coulombeissa)
         return this.varaus;
     }
     
-    public void setPalloVaraus(int varaus){
-        // asetetaan pallon coulombin varaus (mikrocoulombeissa)
+    /**
+    * asetetaan pallon coulombin varaus (mikrocoulombeissa)
+    */
+    public void setPalloVaraus(int varaus){        
         this.varaus = varaus * 0.000001;
     }    
     
