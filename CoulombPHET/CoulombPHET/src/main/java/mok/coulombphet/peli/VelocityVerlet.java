@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package mok.coulombphet.newton;
+package mok.coulombphet.peli;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,7 +38,7 @@ public class VelocityVerlet {
         final double coulombsConstant = 8.987551787368*1000000000;        
         
         this.maxSiirtyma = -1.0;
-        ArrayList<Pallo> p1 = pallot.getPallot();
+        ArrayList<Pallo> p1 = pallot.getPallotArray();
         for (Pallo pallo1 : p1) {
             double axold = pallo1.getPalloAX();
             double ayold = pallo1.getPalloAY();

@@ -14,12 +14,17 @@ public class Pallot {
     // biljardipallojen jono
     // Ensimmäisenä on lyöntipallo ja toisena musta
     // pallo. Ne asetetaan konstruktorissa.
+    // kulma johon lyöntipallon ammutaan on muutujassa 'kulma'
     
     private ArrayList<Pallo> pallot;  
+    private double halkaisija;
+    private double kulma;
 
-    public Pallot(Pallo lyontiPallo, Pallo mustaPallo) {
+    public Pallot(Pallo lyontiPallo, Pallo mustaPallo, double halkaisija) {
         // konstruktorissa asetetaan lyöntipallo jonon ensimmäiseksi ja 
         // musta pallo toiseksi.
+        // pallot ovat samankokoisia, halkaisija on halkaisija
+        this.kulma = 90.0;
         this.pallot = new ArrayList<Pallo>();
         if ("valkoinen" == lyontiPallo.getPalloVari()) { 
             this.pallot.add(lyontiPallo);
@@ -37,15 +42,25 @@ public class Pallot {
             System.out.println("Sen värin pitää olla musta");
             System.exit(1);            
         }
+        this.halkaisija = halkaisija;
     }
 
-    public ArrayList<Pallo> getPallot() {
+    public ArrayList<Pallo> getPallotArray() {
         return this.pallot;
+    }
+    
+    public double getHalkaisija() {
+        return this.halkaisija;
     }
     
     public void lisaaPallo(Pallo pallo) {
         // lisää pallo pallojonoon
         this.pallot.add(pallo);
+    }
+    
+   public void poistaPallo(int killIndex) {
+        // lisää pallo pallojonoon
+        this.pallot.remove(killIndex);
     }
     
     public void nollaaKiihtyvyydet() {
@@ -56,7 +71,50 @@ public class Pallot {
         }
     }
     
+    public void arvoLyontiPallonPaikka(
+            double minX, double maxX, double minY, double maxY,
+            double Dist) {
+        // Arvotaan lyontipallolle uusi paikka
+        // siten että se ei mene toisen pallon päälle.
+        Pallo lyontiPallo;
+        lyontiPallo = this.pallot.get(0);
+        double d = 0.0, newx, newy;
+        double minDist = 0.0;
+        
+        while (minDist < Dist){
+            newx = minX + (Math.random() * (maxX - minX));
+            newy = minY + (Math.random() * (maxY - minY));
+            
+            minDist = 100.0;      
+            for (Pallo pallo : this.pallot.subList(1, this.pallot.size())) {
+                d = Math.sqrt((newx - pallo.getPalloX())
+                        *(newx - pallo.getPalloX())+
+                        (newy - pallo.getPalloY())
+                        *(newy - pallo.getPalloY()));
+                if (d < minDist) {
+                    minDist = d;
+                }
+            }
 
+        }
+    }
+    
+    public void kierraVastapaivaan() {
+        // lyontipallon lähtösuunta kierretään vastapaivaan
+        this.kulma = this.kulma + 1.0;
+        if (this.kulma > 360.0){
+            this.kulma = this.kulma - 360.0;
+        }
+    }
+    
+    public void kierraMyotapaivaan() {
+        // lyontipallon lähtösuunta kierretään myötäpäivään
+        this.kulma = this.kulma - 1.0;
+        if (this.kulma < 0.0){
+            this.kulma = this.kulma + 360.0;
+        }
+    }
+    
     
     @Override
     public String toString() {

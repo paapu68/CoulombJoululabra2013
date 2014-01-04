@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package mok.coulombphet.newton;
+package mok.coulombphet.peli;
 
 import java.util.ArrayList;
 import mok.coulombphet.pelilauta.Pallo;
@@ -41,13 +41,13 @@ public class lisaaKiihtyvyydet {
         double dx, dy, d2;
         final double coulombsConstant = 8.987551787368*1000000000;
         
-        ArrayList<Pallo> p1 = pallot.getPallot();
+        ArrayList<Pallo> p1 = pallot.getPallotArray();
         //System.out.println("OK1");
         //System.exit(1); 
         for (Pallo pallo1 : p1) {
             for (Pallo pallo2 : p1) {
-                dx = pallo2.getPalloX() - pallo1.getPalloX();
-                dy = pallo2.getPalloY() - pallo1.getPalloY();
+                dx = pallo1.getPalloX() - pallo2.getPalloX();
+                dy = pallo1.getPalloY() - pallo2.getPalloY();
                 d2 = Math.sqrt(dx*dx + dy*dy);
                 double varaus1 = pallo1.getPalloVaraus();
                 double varaus2 = pallo2.getPalloVaraus();

@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package mok.coulombphet;
+package mok.coulombphet.gui;
 
 /**
  *
  * @author mka
  */
-public class NappaimistonKuuntelija {
-    
+public interface Paivitettava {
+    void paivita();
 }
