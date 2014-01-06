@@ -22,7 +22,7 @@ public class VelocityVerlet {
     
     public VelocityVerlet(double dt){
         this.dt = dt;
-        this.maxSiirtyma = -1.0;
+        this.maxSiirtyma = 1.0;
     }
     /**
      * Päivitetään pallojen paikat ja nopeudet
@@ -74,5 +74,10 @@ public class VelocityVerlet {
     public double getMaxSiirtyma(){
         return this.maxSiirtyma;
     }
+    
+    public void setMaxSiirtyma(double x){
+        this.maxSiirtyma = x;
+    }    
+    
     
 }

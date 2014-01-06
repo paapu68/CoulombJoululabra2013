@@ -7,6 +7,7 @@
 package mok.coulombphet.peli;
 
 import java.util.ArrayList;
+import mok.coulombphet.pelilauta.LautaData;
 import mok.coulombphet.pelilauta.Pallo;
 import mok.coulombphet.pelilauta.Pallot;
 
@@ -64,5 +65,96 @@ public class lisaaKiihtyvyydet {
         }
     }        
     
+    
+       
+    /**
+     * Lisätään pallojen kiihtyvyyksiin
+     * pallojen overlap vuorovaikutus.
+     * Eli kun pallot meinaavat mennä päällekkäin sen estää
+     * Lennard Jones repulsio
+     * @see http://en.wikipedia.org/wiki/Lennard-Jones_potential
+     * Tässä vain repulsiivine C12 termi.
+     * @param pallot Pallot jotka vuorovaikuttavat keskenään.
+     */
+    public void lisaaHardCoreKiihtyvyydet(Pallot pallot) {
+        double dx, dy, d, d10;
+        final double epsilon = 1e-13;
+        LautaData lautadata = new LautaData();
+        final double minDist = lautadata.getPallonHalkaisija() /2.0;
+        
+        ArrayList<Pallo> p1 = pallot.getPallotArray();
+        for (Pallo pallo1 : p1) {
+            for (Pallo pallo2 : p1) {
+                dx = pallo1.getPalloX() - pallo2.getPalloX();
+                dy = pallo1.getPalloY() - pallo2.getPalloY();
+                d = Math.sqrt(dx*dx + dy*dy) - minDist;
+                d10 = Math.pow(d,10);
+                double massa1 = pallo1.getPalloMassa();
+                // System.out.printf("%f %f %f \n", d2, varaus1, massa1);
+                if (pallo1 != pallo2) {
+                    pallo1.lisaaPalloAX(
+                    (epsilon * dx) / (d10 * massa1));
+                    pallo1.lisaaPalloAY( 
+                    (epsilon * dy) / (d10 * massa1));
+                }
+            }
+        }
+    }      
+    
+   /**
+    * Lisätään kitkasta aiheuta hidastuvuus palloille.
+    * Kitkan suunta on nopeutta vastaan.
+    * @param pallot 
+    * @see http://en.wikipedia.org/wiki/Friction#Dry_friction
+    */
+   public void lisaaKitka(Pallot pallot) {
+        double vx, vy, massa, kitkaVoima;
+        final double kitkaKerroin = 10.20;
+        final double gravitaatioVakio = 9.81;
+        LautaData lautadata = new LautaData();
+        
+        ArrayList<Pallo> p = pallot.getPallotArray();
+        for (Pallo pallo : p) {
+                vx = pallo.getPalloVX();
+                vy = pallo.getPalloVY();
+                massa = pallo.getPalloMassa();
+                kitkaVoima = kitkaKerroin * massa * gravitaatioVakio;
+                pallo.lisaaPalloAX(-this.getYksikkoVektoriX(vx, vy)*
+                        kitkaVoima);            
+                pallo.lisaaPalloAY(-this.getYksikkoVektoriY(vx, vy)*
+                        kitkaVoima);
+        }
+   }        
 
+    /**
+     * @param x vektorin x komponentti
+     * @param y vektorin y komponentti
+     * @return palautetaan xi+yi suuntaisen yksikkövektorin X komponentti 
+     */   
+    public double getYksikkoVektoriX(double x, double y){
+        double d = Math.sqrt(x*x + y*y);
+        if (d < 0.1){
+            return 0.0;
+        }
+        else{
+            return x/d;
+        }
+    }
+    
+    /**
+     * @param x vektorin x komponentti
+     * @param y vektorin y komponentti
+     * @return palautetaan xi+yi suuntaisen yksikkövektorin Y komponentti 
+     */
+    public double getYksikkoVektoriY(double x, double y){
+        double d = Math.sqrt(x*x + y*y);
+        if (d < 0.1){
+            return 0.0;
+        }
+        else{
+            return y/d;
+        }         
+    }    
+        
+    
 }

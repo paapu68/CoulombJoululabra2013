@@ -6,7 +6,6 @@
 
 package mok.coulombphet.peli;
 
-
 import mok.coulombphet.gui.Piirtoalusta;
 import mok.coulombphet.peli.VelocityVerlet;
 import mok.coulombphet.pelilauta.Pallo;
@@ -39,6 +38,8 @@ public class Biljardipeli extends Timer implements ActionListener {
     private lisaaKiihtyvyydet lisaakiihtyvyydet;
     private LautaData lautadata;
     private VelocityVerlet nopeusVerlet;
+    final double maxSiirtyma = 0.1, maxNopeus = 1.1,
+            maxKiihtyvyys = 1.1;
    
     public Biljardipeli() {
         super(1, null);
@@ -56,8 +57,8 @@ public class Biljardipeli extends Timer implements ActionListener {
         this.jatka = true;       
         this.pallotliikkuu = false;
         
-        this.lyontipallo = new Pallo(0.7, 2.0, 0.0,0.0, 0.0,0.0, 0.16, 10,"valkoinen");
-        this.mustapallo = new Pallo(0.7, 1.0, 0.0, 0.0, 0.0,0.0, 0.16, -20,"musta");
+        this.lyontipallo = new Pallo(0.7, 2.0, 0.0,0.0, 0.0,0.0, 0.16, 100,"valkoinen");
+        this.mustapallo = new Pallo(0.7, 1.0, 0.0, 0.0, 0.0,0.0, 0.16, -200,"musta");
         this.pallot = new Pallot(lyontipallo, mustapallo, 
                 lautadata.getPallonHalkaisija());
         // testiLisays = new lisaaKiihtyvyydet();
@@ -70,9 +71,11 @@ public class Biljardipeli extends Timer implements ActionListener {
           setDelay(20);  
           //System.out.println("Jatketaan");  
           //this.pallotliikkuu = true;
-          while (this.pallotliikkuu) {
+          while (this.pallotliikkuu && this.jatka) {
             this.pallot.nollaaKiihtyvyydet();
             lisaakiihtyvyydet.lisaaCoulombKiihtyvyydetBiljardiPallot(this.pallot);
+            lisaakiihtyvyydet.lisaaHardCoreKiihtyvyydet(this.pallot);
+            lisaakiihtyvyydet.lisaaKitka(this.pallot);
             nopeusVerlet.PaivitaVelocityVerlet(this.pallot);
             seina.VaihdaLiikemaara(this.pallot);
             reiat.tapaNormiPallot(this.pallot);
@@ -81,8 +84,23 @@ public class Biljardipeli extends Timer implements ActionListener {
             if (!reiat.tarkastaPallo(this.lyontipallo)){
                 System.out.println("LP reikään");
                 this.pallot.arvoLyontiPallonPaikka(0, 0, 
-                        lautadata.getMaxLautaX(), lautadata.getMaxLautaY(), 0.20);
-            } 
+                lautadata.getMaxLautaX(),lautadata.getMaxLautaY(), 0.20);
+                this.pallotliikkuu = false;
+                this.pallot.nollaaNopeudet();
+            } else if             
+             (nopeusVerlet.getMaxSiirtyma() < maxSiirtyma &&
+                    pallot.suurinNopeus() < this.maxNopeus){
+                System.out.println("Checking alku");
+                System.out.println(nopeusVerlet.getMaxSiirtyma());
+                System.out.println(pallot.suurinNopeus());
+                System.out.println(pallot.suurinKiihtyvyys());
+                System.out.println("Checking -----------");
+                System.out.println("Pallot pysähtyi");
+                System.out.println(nopeusVerlet.getMaxSiirtyma());
+                this.pallotliikkuu = false;
+                this.pallot.nollaaNopeudet();
+                nopeusVerlet.setMaxSiirtyma(1.0);
+            }             
           }
         }  
         System.out.println("Lopetetaan");
@@ -122,7 +140,5 @@ public class Biljardipeli extends Timer implements ActionListener {
         paivitettava.paivita();
         //setDelay(100);
     }
-
-
 
 }

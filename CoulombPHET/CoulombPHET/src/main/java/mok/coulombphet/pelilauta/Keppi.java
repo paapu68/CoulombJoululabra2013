@@ -20,10 +20,10 @@ public class Keppi {
     public Keppi(){
         this.kulma = 270.0;
         this.kulmaAskel = 1.0;
-        this.poikkeama = 0.1;
-        this.poikkeamaAskel = 0.001;
+        this.poikkeama = 0.01;
+        this.poikkeamaAskel = 0.01;
         //this.jousivakio = 10;
-        this.jousivakio = 10000000;
+        this.jousivakio = 100000000;
     }
     
     public double getKulmaRadian(){
@@ -88,7 +88,7 @@ public class Keppi {
     public void iske(Pallo pallo){
         // f=m*a = m*dv/dt
         // dv=f*dt/m
-        pallo.setPalloVX(lautadata.getDT()/pallo.getPalloMassa()*
+        pallo.setPalloVX(-lautadata.getDT()/pallo.getPalloMassa()*
                 this.getVoima()*Math.cos(this.getKulmaRadian()));
         pallo.setPalloVY(-lautadata.getDT()/pallo.getPalloMassa()*
                 this.getVoima()*Math.sin(this.getKulmaRadian()));

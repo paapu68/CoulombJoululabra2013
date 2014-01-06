@@ -78,6 +78,16 @@ public class Pallot {
     }
     
    /**
+   * nollataan pallojonon pallojen x ja y nopeudet
+   */   
+    public void nollaaNopeudet() {
+        for (Pallo pallo : this.pallot) {
+            pallo.setPalloVX(0.0);
+            pallo.setPalloVY(0.0);
+        }
+    }
+   
+   /**
    * nollataan pallojonon pallojen x ja y kiihtyvyydet
    */   
     public void nollaaKiihtyvyydet() {
@@ -87,17 +97,50 @@ public class Pallot {
         }
     }
     
+   /**
+   * palautetaan 
+   * suurin nopeus
+   * 
+   */   
+    public double suurinNopeus() {
+        double v=0.0;
+        double maxv=0.0;
+        for (Pallo pallo : this.pallot) {
+            v = Math.sqrt(pallo.getPalloVX()*pallo.getPalloVX()
+                    +pallo.getPalloVY()*pallo.getPalloVY());
+            if (maxv < v){
+                maxv = v;
+            }
+        }
+        return maxv;
+    }   
+
+    public double suurinKiihtyvyys() {
+        double a=0.0;
+        double maxa=0.0;
+        for (Pallo pallo : this.pallot) {
+            a = Math.sqrt(pallo.getPalloAX()*pallo.getPalloAX()
+                    +pallo.getPalloAY()*pallo.getPalloAY());
+            if (maxa < a){
+                maxa = a;
+            }
+        }
+        return maxa;
+    }       
+    
     /**
     * Arvotaan lyontipallolle uusi paikka
     * siten että se ei mene toisen pallon päälle.
     */
     public void arvoLyontiPallonPaikka(
-            double minX, double maxX, double minY, double maxY,
+            double minX, double minY, double maxX,  double maxY,
             double Dist) {
         Pallo lyontiPallo;
         lyontiPallo = this.pallot.get(0);
-        double d = 0.0, newx, newy;
+        double d, newx, newy;
         double minDist = 0.0;
+        newx = 0.0;
+        newy = 0.0;
         
         while (minDist < Dist){
             newx = minX + (Math.random() * (maxX - minX));
@@ -115,6 +158,12 @@ public class Pallot {
             }
 
         }
+        lyontiPallo.setPalloX(newx);
+        lyontiPallo.setPalloY(newy);
+        System.out.println("ARVOTTU:");
+        System.out.println(newx);
+        System.out.println(newy);
+        System.out.println("---------");
     }
         
     /**
