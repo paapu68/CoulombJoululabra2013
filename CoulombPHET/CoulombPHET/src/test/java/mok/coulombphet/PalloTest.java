@@ -34,7 +34,14 @@ public class PalloTest {
     
     @Before
     public void setUp() {
-        pallo = new Pallo(0.25, 0.30, -5.0,-4.0, -3.0,-2.0, 50.0, -1,"kelt");
+        pallo = new Pallo(0.25, 0.30);
+        //pallo = new Pallo(0.25, 0.30, -5.0,-4.0, -3.0,-2.0, 50.0, -1,"kelt");
+        pallo.setPalloVX(-5.0);
+        pallo.setPalloVY(-4.0);
+        pallo.setPalloAX(-3.0);
+        pallo.setPalloAY(-2.0);
+        pallo.setPalloVaraus(-1);
+        pallo.setPalloVari("kelt");
     }
     
     @After
@@ -76,11 +83,6 @@ public class PalloTest {
         double vastaus = pallo.getPalloAY();
         assertEquals(-2.0, vastaus, 0.001);
     }    
-    @Test
-    public void getPalloMassatest() {
-        double vastaus = pallo.getPalloMassa();
-        assertEquals(50.0, vastaus, 0.001);
-    }
 
     @Test
     public void getPalloVaritest() {
@@ -122,12 +124,8 @@ public class PalloTest {
         double vastaus = pallo.getPalloAY();
         assertEquals(2.0, vastaus, 0.001);
     }     
-    @Test
-    public void setPalloMassatest() {
-        pallo.setPalloMassa(20.0);
-        double vastaus = pallo.getPalloMassa();
-        assertEquals(20.0, vastaus, 0.001);
-    }
+   
+
     @Test
     public void setPalloVarausTest() {
         pallo.setPalloVaraus(-3);
@@ -139,5 +137,19 @@ public class PalloTest {
         pallo.setPalloVari("must");
         String vastaus = pallo.getPalloVari();
         assertEquals("must", vastaus);
-    }    
+    }
+    @Test 
+    public void lisaaPalloAXTest() {
+        pallo.setPalloAX(0.0);
+        pallo.lisaaPalloAX(2.0);
+        double vastaus = pallo.getPalloAX();
+        assertEquals(2.0, vastaus,0.00000001);
+    }   
+    @Test 
+    public void lisaaPalloAYTest() {
+        pallo.setPalloAY(0.0);
+        pallo.lisaaPalloAY(-3.0);
+        double vastaus = pallo.getPalloAY();
+        assertEquals(-3.0, vastaus,0.00000001);
+    }       
 }

@@ -21,7 +21,6 @@ public class Pallo {
     private double vy;
     private double ax;
     private double ay;
-    private double massa; 
     private double varaus;
     private String vari;
 
@@ -32,21 +31,18 @@ public class Pallo {
     *  @param vy pallon y suunnan vauhti
     *  @param ax pallon x suunnan kiihtyvyys
     *  @param ay pallon y suunnan kiihtyvyys
-    *  @param massa pallon massa
     *  @param varaus pallon varaus mikrocoulombeina
     *  @param vari pallon väri
     */
-    public Pallo(double x, double y, double vx, double vy, double ax, double ay, 
-            double massa, int varaus, String vari) {
+    public Pallo(double x, double y) {
         this.x = x;
         this.y = y;
-        this.vx = vx;
-        this.vy = vy;
-        this.ax = ax;
-        this.ay = ay;
-        this.massa = massa;
-        this.varaus = varaus*0.000001;
-        this.vari = vari;
+        this.vx = 0.0;
+        this.vy = 0.0;
+        this.ax = 0.0;
+        this.ay = 0.0;
+        this.varaus = 0.0;
+        this.vari = "";
     }
 
     public double getPalloX(){
@@ -111,12 +107,6 @@ public class Pallo {
         this.ay += ay;
     }    
     
-    public double getPalloMassa(){
-        return this.massa;
-    }
-    public void setPalloMassa(double massa){
-        this.massa = massa;
-    }    
     public String getPalloVari(){
         return this.vari;
     }

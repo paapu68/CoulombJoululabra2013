@@ -25,7 +25,7 @@ import mok.coulombphet.pelilauta.Pallot;
  */
 
 public class lisaaKiihtyvyydet {
-
+    LautaData lautadata = new LautaData();
     public lisaaKiihtyvyydet() {
         // dummy
     }
@@ -53,13 +53,13 @@ public class lisaaKiihtyvyydet {
                 d2 = Math.sqrt(dx*dx + dy*dy);
                 double varaus1 = pallo1.getPalloVaraus();
                 double varaus2 = pallo2.getPalloVaraus();
-                double massa1 = pallo1.getPalloMassa();
+                double massa = lautadata.getPallonMassa();
                 // System.out.printf("%f %f %f \n", d2, varaus1, massa1);
                 if (d2 > 0.01) {
                     pallo1.lisaaPalloAX(coulombsConstant *  
-                        varaus1 * varaus2 * dx / (d2 * massa1));
+                        varaus1 * varaus2 * dx / (d2 * massa));
                     pallo1.lisaaPalloAY(coulombsConstant *  
-                        varaus1 * varaus2 * dy / (d2 * massa1));
+                        varaus1 * varaus2 * dy / (d2 * massa));
                 }
             }
         }
@@ -89,13 +89,13 @@ public class lisaaKiihtyvyydet {
                 dy = pallo1.getPalloY() - pallo2.getPalloY();
                 d = Math.sqrt(dx*dx + dy*dy) - minDist;
                 d10 = Math.pow(d,10);
-                double massa1 = pallo1.getPalloMassa();
+                double massa = lautadata.getPallonMassa();
                 // System.out.printf("%f %f %f \n", d2, varaus1, massa1);
                 if (pallo1 != pallo2) {
                     pallo1.lisaaPalloAX(
-                    (epsilon * dx) / (d10 * massa1));
+                    (epsilon * dx) / (d10 * massa));
                     pallo1.lisaaPalloAY( 
-                    (epsilon * dy) / (d10 * massa1));
+                    (epsilon * dy) / (d10 * massa));
                 }
             }
         }
@@ -109,7 +109,7 @@ public class lisaaKiihtyvyydet {
     */
    public void lisaaKitka(Pallot pallot) {
         double vx, vy, massa, kitkaVoima;
-        final double kitkaKerroin = 10.20;
+        final double kitkaKerroin = 100.0;
         final double gravitaatioVakio = 9.81;
         LautaData lautadata = new LautaData();
         
@@ -117,12 +117,12 @@ public class lisaaKiihtyvyydet {
         for (Pallo pallo : p) {
                 vx = pallo.getPalloVX();
                 vy = pallo.getPalloVY();
-                massa = pallo.getPalloMassa();
+                massa = lautadata.getPallonMassa();
                 kitkaVoima = kitkaKerroin * massa * gravitaatioVakio;
                 pallo.lisaaPalloAX(-this.getYksikkoVektoriX(vx, vy)*
-                        kitkaVoima);            
+                        kitkaVoima/massa);            
                 pallo.lisaaPalloAY(-this.getYksikkoVektoriY(vx, vy)*
-                        kitkaVoima);
+                        kitkaVoima/massa);
         }
    }        
 

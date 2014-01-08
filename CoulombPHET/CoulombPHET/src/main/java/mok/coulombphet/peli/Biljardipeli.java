@@ -16,6 +16,7 @@ import mok.coulombphet.pelilauta.Seina;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import mok.coulombphet.pelilauta.LautaData;
 import javax.swing.Timer;
@@ -46,21 +47,20 @@ public class Biljardipeli extends Timer implements ActionListener {
         addActionListener(this);
         setInitialDelay(20);
         
-        Pallo lyontiPallo, mustaPallo;
         this.lisaakiihtyvyydet = new lisaaKiihtyvyydet();
         this.lautadata = new LautaData();        
         this.nopeusVerlet= new VelocityVerlet(this.lautadata.getDT());
         this.seina = new Seina();
         this.reiat = new Reiat();
         this.keppi = new Keppi();
+        this.pallot = new Pallot();
         
         this.jatka = true;       
         this.pallotliikkuu = false;
         
-        this.lyontipallo = new Pallo(0.7, 2.0, 0.0,0.0, 0.0,0.0, 0.16, 100,"valkoinen");
-        this.mustapallo = new Pallo(0.7, 1.0, 0.0, 0.0, 0.0,0.0, 0.16, -200,"musta");
-        this.pallot = new Pallot(lyontipallo, mustapallo, 
-                lautadata.getPallonHalkaisija());
+        pallot.asetaPallojenAlkupaikat();
+        pallot.asetaPallojenVarit();
+        pallot.asetaPallojenVaraukset(30);
         // testiLisays = new lisaaKiihtyvyydet();
     }
     
@@ -68,7 +68,7 @@ public class Biljardipeli extends Timer implements ActionListener {
         
         while (this.jatka){
           // ammutaan lyöntipallo
-          setDelay(20);  
+          setDelay(1);  
           //System.out.println("Jatketaan");  
           //this.pallotliikkuu = true;
           while (this.pallotliikkuu && this.jatka) {
@@ -79,9 +79,9 @@ public class Biljardipeli extends Timer implements ActionListener {
             nopeusVerlet.PaivitaVelocityVerlet(this.pallot);
             seina.VaihdaLiikemaara(this.pallot);
             reiat.tapaNormiPallot(this.pallot);
-            jatka = reiat.tarkastaPallo(this.mustapallo);
+            jatka = reiat.tarkastaPallo(pallot.getMustaPallo());
             
-            if (!reiat.tarkastaPallo(this.lyontipallo)){
+            if (!reiat.tarkastaPallo(pallot.getLyontiPallo())){
                 System.out.println("LP reikään");
                 this.pallot.arvoLyontiPallonPaikka(0, 0, 
                 lautadata.getMaxLautaX(),lautadata.getMaxLautaY(), 0.20);
@@ -133,6 +133,7 @@ public class Biljardipeli extends Timer implements ActionListener {
     public void setPaivitettava(Paivitettava paivitettava) {
         this.paivitettava = paivitettava;
     }
+    
     
     @Override
     public void actionPerformed(ActionEvent ae) {  

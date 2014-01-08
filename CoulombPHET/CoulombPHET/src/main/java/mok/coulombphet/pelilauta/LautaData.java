@@ -6,6 +6,8 @@
 
 package mok.coulombphet.pelilauta;
 
+import java.util.ArrayList;
+
 /**
  * Tähän luokkaan talletetaan pelilautaan liittyvät mitta yms tiedot.
  * @see http://en.wikipedia.org/wiki/Billiard_table
@@ -15,9 +17,11 @@ public class LautaData {
     final Double minLautaX, minLautaY;
     final Double maxLautaX, maxLautaY; 
     final Double pallonHalkaisija;
+    final Double pallonMassa;
     final Double kepinPituus;
     final Double reianHalkaisija;
     final double scale;
+    final double alkuX, alkuY, valkoinenX, valkoinenY;
    
     final int pixelOffsetX;
     final int pixelOffsetY;
@@ -26,12 +30,13 @@ public class LautaData {
     
     
     public LautaData(){
-        this.dt = 0.0000001;  // aika-askel
+        this.dt = 0.000001;  // aika-askel
         this.minLautaX = 0.0;
         this.minLautaY = 0.0;
         this.maxLautaX = 1.4;
         this.maxLautaY = 2.7;
         this.pallonHalkaisija = 0.0517;
+        this.pallonMassa = 0.16;
         this.kepinPituus = 4.0 * this.pallonHalkaisija;
         this.reianHalkaisija = this.pallonHalkaisija * 1.6;
         this.scale = 200.0;
@@ -47,8 +52,13 @@ public class LautaData {
         this.pituusXpixel = pituusX.intValue();
         Double pituusY = (this.maxLautaY-this.minLautaY)*this.scale;
         this.pituusYpixel = pituusY.intValue();
+        this.alkuX = this.maxLautaX / 2.0;
+        this.alkuY = 1.0/4.0*this.maxLautaY;
+        this.valkoinenX = this.alkuX;
+        this.valkoinenY = 3.0/4.0*this.maxLautaY;
+        
     }
-    
+
     public double getDT(){
         return this.dt;
     }
@@ -71,6 +81,10 @@ public class LautaData {
     
     public double getPallonHalkaisija(){
         return this.pallonHalkaisija;
+    }
+    
+    public double getPallonMassa(){
+        return this.pallonMassa;
     }
     
     public double getKepinPituus(){

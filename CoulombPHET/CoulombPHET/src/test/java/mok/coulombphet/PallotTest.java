@@ -36,33 +36,27 @@ public class PallotTest {
     
     @Before
     public void setUp() {
-        lyontiPallo = new Pallo(2, 3, -5.0,-4.0, -3.0,-2.0, 50.0, -1,"valkoinen");
-        mustaPallo = new Pallo(10, 20, -5.0,-4.0, -3.0,-2.0, 50.0, -1,"musta");
-        pallo0 = new Pallo(10, 20, -5.0,-4.0, -3.0,-2.0, 50.0, -1,"punainen");
+        lyontiPallo = new Pallo(1.0, 2.0);
+        mustaPallo = new Pallo(0.5, 1.5);
+        pallo0 = new Pallo(0.1, 0.2);
     }
     
     @After
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
     @Test
     public void getPallotTest() {
-        Pallot pallot = new Pallot(lyontiPallo, mustaPallo);
+        Pallot pallot = new Pallot();
+        pallot.lisaaPallo(lyontiPallo);
+        pallot.lisaaPallo(mustaPallo);
         pallot.lisaaPallo(pallo0);
-        ArrayList<Pallo> uudetpallot = pallot.getPallot();
-        String variLyontiPallo = pallot.getPallot().get(0).getPalloVari();
-        String variMustaPallo = pallot.getPallot().get(1).getPalloVari();
-        String vari0Pallo = pallot.getPallot().get(2).getPalloVari();
-        //System.out.println("ly"+variLyontiPallo);
-        //System.out.println("mu"+variMustaPallo);
-        //System.out.println("pu"+vari0Pallo);
-        assertEquals("punainen", vari0Pallo);
-        assertEquals("musta", variMustaPallo);
-        assertEquals("valkoinen", variLyontiPallo);
+        ArrayList<Pallo> uudetpallot = pallot.getPallotArray();
+        double x0 = pallot.getPallotArray().get(0).getPalloX();
+        double x1 = pallot.getPallotArray().get(1).getPalloX();
+        double y2 = pallot.getPallotArray().get(2).getPalloY();
+        assertEquals(1.0, x0, 0.001);
+        assertEquals(0.5, x1, 0.001);
+        assertEquals(0.2, y2, 0.001);
     }
 }

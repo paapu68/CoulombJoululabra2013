@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import mok.coulombphet.newton.VelocityVerlet;
+import mok.coulombphet.peli.VelocityVerlet;
 import mok.coulombphet.pelilauta.Pallo;
 import mok.coulombphet.pelilauta.Pallot;
 
@@ -23,6 +23,7 @@ import mok.coulombphet.pelilauta.Pallot;
 public class VelocityVerletTest {
     VelocityVerlet askeltaja;
     Pallo lyontiPallo, mustaPallo;
+    Pallot pallot;
     
     public VelocityVerletTest() {
     }
@@ -38,8 +39,11 @@ public class VelocityVerletTest {
     @Before
     public void setUp() {
         askeltaja = new VelocityVerlet(0.5);
-        lyontiPallo = new Pallo(1, 1, 1,0, 2,0, 0.18, -10,"valkoinen");
-        mustaPallo = new Pallo(1.5, 1.5, 0, -1, 0,-2.0, 0.18, -10,"musta");  
+        lyontiPallo = new Pallo(1.0, 1.0);
+        mustaPallo = new Pallo(1.5, 1.5); 
+        pallot = new Pallot();
+        pallot.lisaaPallo(lyontiPallo);
+        pallot.lisaaPallo(mustaPallo);
     }
     
     @After
@@ -51,11 +55,18 @@ public class VelocityVerletTest {
     //
     @Test
     public void askeltajaTest(){
-        Pallot pallot = new Pallot(lyontiPallo, mustaPallo);
+        lyontiPallo.setPalloVX(1.0);
+        lyontiPallo.setPalloVY(0.0);
+        lyontiPallo.setPalloAX(2.0);
+        lyontiPallo.setPalloAY(0.0);
+        mustaPallo.setPalloVX(0.0);
+        mustaPallo.setPalloVY(-1.0);
+        mustaPallo.setPalloAX(0.0);
+        mustaPallo.setPalloAY(-2.0);        
         askeltaja.PaivitaVelocityVerlet(pallot);
         double siirtyma =askeltaja.getMaxSiirtyma();
-        double x0 = pallot.getPallot().get(0).getPalloX();
-        double y1 = pallot.getPallot().get(1).getPalloY();
+        double x0 = pallot.getPallotArray().get(0).getPalloX();
+        double y1 = pallot.getPallotArray().get(1).getPalloY();
         // x: pitäisi tulla xold + v*dt + 0.5*ax*dt*dt
         // 1+1*0.5+0.5*2*0.5*0.5=1.75
         // y=1.5-1*0.5-0.5*2*0.5*0.5=0.75

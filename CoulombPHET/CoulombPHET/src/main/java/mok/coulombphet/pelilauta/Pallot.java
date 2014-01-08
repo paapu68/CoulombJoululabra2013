@@ -13,32 +13,12 @@ import java.util.ArrayList;    // imports ArrayList
  */
 public class Pallot {    
     private ArrayList<Pallo> pallot;  
-    private double halkaisija;
-    
-    /** konstruktorissa asetetaan lyöntipallo jonon ensimmäiseksi ja 
-        * musta pallo toiseksi.
-        * @param halkaisija on pallojen halkaisija metreissä.
-        */    
-    public Pallot(Pallo lyontiPallo, Pallo mustaPallo, double halkaisija) {
-    
+    private LautaData lautadata = new LautaData(); 
+    /** 
+     * Biljardipallojen jono 
+     */    
+    public Pallot() {
         this.pallot = new ArrayList<Pallo>();
-        if ("valkoinen" == lyontiPallo.getPalloVari()) { 
-            this.pallot.add(lyontiPallo);
-        }
-        else {
-            System.out.println("Pallot jonossa lyöntipallo on ensimmäinen");
-            System.out.println("Sen värin pitää olla valkoinen");
-            System.exit(1);            
-        }
-        if ("musta" == mustaPallo.getPalloVari()) { 
-            this.pallot.add(mustaPallo);
-        }
-        else {
-            System.out.println("Pallot jonossa musta pallo on toisena");
-            System.out.println("Sen värin pitää olla musta");
-            System.exit(1);            
-        }
-        this.halkaisija = halkaisija;
     }
 
     public ArrayList<Pallo> getPallotArray() {
@@ -57,10 +37,6 @@ public class Pallot {
     */    
     public Pallo getMustaPallo() {
         return this.getPallotArray().get(1);
-    }
-    
-    public double getHalkaisija() {
-        return this.halkaisija;
     }
     
     /**
@@ -167,14 +143,78 @@ public class Pallot {
     }
         
     /**
-    * palautetaan vain värit
+    * Asetetaan pallojen alkupaikat.
+    *
+    */
+    public void asetaPallojenAlkupaikat(){
+        double x, y;
+        Pallo pallo;
+        // valkoinen pallo ensin
+        pallo = new Pallo(lautadata.valkoinenX, lautadata.valkoinenY);
+        this.pallot.add(pallo);
+        // musta pallo toiseksi
+        pallo = new Pallo(lautadata.alkuX,lautadata.alkuY-2.0*lautadata.pallonHalkaisija);
+        this.pallot.add(pallo);
+        // kärkipallo
+        pallo = new Pallo(lautadata.alkuX,lautadata.alkuY);
+        this.pallot.add(pallo); 
+        
+        y = lautadata.alkuY;
+        for (int row = 1; row <= 4 ; row = row + 1) {
+            x = lautadata.alkuX 
+                    - (row+1)*Math.sin(50.0/360.0*2.0*Math.PI)
+                    *lautadata.pallonHalkaisija;
+            y -= lautadata.pallonHalkaisija;
+            for (int column = 0; column <= row ; column = column + 1) {
+                x += lautadata.pallonHalkaisija*1.2;
+                // ei laiteta mustaa palloa toiseen kertaan
+                if (row == 2 && column ==1){
+                   
+                }
+                else{
+                     pallo = new Pallo(x,y);
+                    this.pallot.add(pallo); 
+                }
+            }     
+        }
+    }
+    
+    /**
+    * Asetetaan pallojen varit.
+    * vain 0. ja 1. pallo, muut väri varauksen perusteella
+    */
+    public void asetaPallojenVarit(){       
+        // valkoinen pallo ensin
+        this.pallot.get(0).setPalloVari("valkoinen");
+        // musta pallo toiseksi
+        this.pallot.get(1).setPalloVari("musta");        
+    }
+    
+    /**
+    * Asetetaan pallojen varaukset.
+    * pallot 2-8 negatiivisia
+    * pallot 9-15 positiivisia
+    */
+    public void asetaPallojenVaraukset(int varaus){          
+        // negatiiviset (punaiset pallot, 2-8)
+        for (int i = 2; i <= 8 ; i = i + 1) {
+            this.pallot.get(i).setPalloVaraus(-varaus);
+        }
+        // positiiviset (siniset pallot, 9-15)
+        for (int i = 9; i <= 15 ; i = i + 1) {
+            this.pallot.get(i).setPalloVaraus(varaus);
+        }    
+    }
+    
+    /**
+    * palautetaan vain varaukset
     */    
     @Override
     public String toString() {
         String message;
         message = "PALLOT (varit)";
         for ( Pallo pallo : this.pallot ) {
-            message = message + " " + pallo.getPalloVari();
+            message = message + " " + pallo.getPalloVaraus();
         }
         return message;
     }        

@@ -88,9 +88,9 @@ public class Keppi {
     public void iske(Pallo pallo){
         // f=m*a = m*dv/dt
         // dv=f*dt/m
-        pallo.setPalloVX(-lautadata.getDT()/pallo.getPalloMassa()*
+        pallo.setPalloVX(-lautadata.getDT()/lautadata.pallonMassa*
                 this.getVoima()*Math.cos(this.getKulmaRadian()));
-        pallo.setPalloVY(-lautadata.getDT()/pallo.getPalloMassa()*
+        pallo.setPalloVY(-lautadata.getDT()/lautadata.pallonMassa*
                 this.getVoima()*Math.sin(this.getKulmaRadian()));
     }
     
