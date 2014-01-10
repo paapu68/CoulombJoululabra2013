@@ -12,30 +12,35 @@ package mok.coulombphet.peli;
  *
  */
 public class Pelaaja {
-    private int pisteet;
+    private int pallojaJaljella;
     private String yritanVaria;
     private Boolean yritanMustaaPalloa;
     private Boolean voittanut;
     private Boolean havinnyt;
     
     public Pelaaja(){
-        this.pisteet = 0;
+        this.pallojaJaljella = 7;
         this.yritanVaria = "enTieda";
         this.yritanMustaaPalloa = false;
         this.voittanut = false;
         this.havinnyt = false;
     }
     
-    public void lisaaPisteet(int lisays){
-        this.pisteet += this.pisteet;
+    public void vahennaPallojaJaljella(int lisays){
+        this.pallojaJaljella -= this.pallojaJaljella;
     }
     
-    public int getPisteet(){
-        return this.pisteet;
+    public int getPallojaJaljella(){
+        return this.pallojaJaljella;
     }
     
     public void setYritanVaria(String vari){
-        this.yritanVaria = vari;
+        if (vari.equals("punainen")){
+            this.yritanVaria = vari;
+        }
+        if (vari.equals("sininen")){
+            this.yritanVaria = vari;
+        }
     }
     
     public String getYritanVaria(){

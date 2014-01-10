@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import mok.coulombphet.peli.Biljardipeli;
+import mok.coulombphet.peli.Pelaaja;
 import mok.coulombphet.pelilauta.Keppi;
 import mok.coulombphet.pelilauta.LautaData;
 import mok.coulombphet.pelilauta.Pallo;
@@ -45,6 +46,7 @@ public class Piirtoalusta extends JPanel implements Paivitettava{
         this.piirraPallot(g);
         this.piirraReiat(g);
         this.piirraKeppi(g);
+        this.piirraTeksti(g);
     }       
     
     /**
@@ -53,12 +55,32 @@ public class Piirtoalusta extends JPanel implements Paivitettava{
      */
     public void piirraPallot(Graphics g) {
         ArrayList<Pallo> p1 = this.biljardipeli.getPallot().getPallotArray();
+        String pelaajanVari = this.biljardipeli.getPelaajat().getPelaaja().getYritanVaria();
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(5));  
         for (Pallo pallo : p1) {   
             Integer pixelX = lautadata.lautaDouble2PixelX(pallo.getPalloX());
             Integer pixelY = lautadata.lautaDouble2PixelY(pallo.getPalloY());
        
             switch (pallo.getPalloVari()) {
                 case "valkoinen":
+                    // jos yritetään punaisia tai sinisiä piirretään
+                    // vastaava väri lyöntipallon ympärille
+                    
+                    if (pelaajanVari.equals("sininen")){
+                      g2.setColor(Color.BLUE);
+                      g2.drawOval(pixelX-lautadata.getpallonHalkaisijaPixel()/2, 
+                      pixelY-lautadata.getpallonHalkaisijaPixel()/2,
+                      lautadata.getpallonHalkaisijaPixel(),
+                      lautadata.getpallonHalkaisijaPixel());
+                    }
+                    if (pelaajanVari.equals("punainen")){
+                      g2.setColor(Color.RED);
+                      g2.drawOval(pixelX-lautadata.getpallonHalkaisijaPixel()/2, 
+                      pixelY-lautadata.getpallonHalkaisijaPixel()/2,
+                      lautadata.getpallonHalkaisijaPixel(),
+                      lautadata.getpallonHalkaisijaPixel());                       
+                    }
                     g.setColor(Color.WHITE);
                     break;
                 case "musta":
@@ -137,6 +159,27 @@ public class Piirtoalusta extends JPanel implements Paivitettava{
             g2.drawLine(pixelx1, pixely1, pixelx2, pixely2);           
         }
     }        
+    
+    /**
+     * Kirjoitetaan ruudun yläreunaan pelitilanteeseen
+     * sopiva kommentti
+     * @param g grafiikka 
+     */
+    public void piirraTeksti(Graphics g) {
+        Integer pelaaja = this.biljardipeli.getPelaajat().getVuoro();
+        String kommentti = "Vuorossa pelaaja: "+pelaaja.toString();
+        if (this.biljardipeli.getPelaajat().getPelaaja().getvoittanut()){
+            kommentti = "Pelin voitti: " + pelaaja.toString();
+        }
+        if (this.biljardipeli.getPelaajat().getPelaaja().getHavinnyt()){
+            kommentti = "Pelin hävisi: " + pelaaja.toString();
+        }      
+        g.setColor(Color.BLACK);
+        g.drawString(kommentti, 10, 10);
+        
+    }    
+    
+    
 }
     
     

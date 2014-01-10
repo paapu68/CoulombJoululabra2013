@@ -8,8 +8,7 @@ package mok.coulombphet.pelilauta;
 import java.util.ArrayList;    // imports ArrayList
 /**
  * biljardipallojen jono ja jonoon liittyviä toimintoja.
- * Ensimmäisenä on lyöntipallo ja toisena musta pallo. 
- * Ne asetetaan konstruktorissa.
+ * Oletus: ensimmäisenä on lyöntipallo ja toisena musta pallo. 
  */
 public class Pallot {    
     private ArrayList<Pallo> pallot;  
@@ -136,10 +135,6 @@ public class Pallot {
         }
         lyontiPallo.setPalloX(newx);
         lyontiPallo.setPalloY(newy);
-        System.out.println("ARVOTTU:");
-        System.out.println(newx);
-        System.out.println(newy);
-        System.out.println("---------");
     }
         
     /**
@@ -187,7 +182,15 @@ public class Pallot {
         // valkoinen pallo ensin
         this.pallot.get(0).setPalloVari("valkoinen");
         // musta pallo toiseksi
-        this.pallot.get(1).setPalloVari("musta");        
+        this.pallot.get(1).setPalloVari("musta");
+                // negatiiviset (punaiset pallot, 2-8)
+        for (int i = 2; i <= 8 ; i = i + 1) {
+            this.pallot.get(i).setPalloVari("punainen");
+        }
+        // positiiviset (siniset pallot, 9-15)
+        for (int i = 9; i <= 15 ; i = i + 1) {
+            this.pallot.get(i).setPalloVari("sininen");
+        }    
     }
     
     /**

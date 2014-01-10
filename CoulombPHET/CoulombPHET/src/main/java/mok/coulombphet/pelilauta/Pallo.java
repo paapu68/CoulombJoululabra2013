@@ -27,12 +27,12 @@ public class Pallo {
    /**
     *  @param x pallon x koordinaatti
     *  @param y pallon y koordinaatti
-    *  @param vx pallon x suunnan vauhti
-    *  @param vy pallon y suunnan vauhti
-    *  @param ax pallon x suunnan kiihtyvyys
-    *  @param ay pallon y suunnan kiihtyvyys
-    *  @param varaus pallon varaus mikrocoulombeina
-    *  @param vari pallon väri
+    *  vx pallon x suunnan vauhti
+    *  vy pallon y suunnan vauhti
+    *  ax pallon x suunnan kiihtyvyys
+    *  ay pallon y suunnan kiihtyvyys
+    *  varaus pallon varaus mikrocoulombeina
+    *  vari pallon väri
     */
     public Pallo(double x, double y) {
         this.x = x;
