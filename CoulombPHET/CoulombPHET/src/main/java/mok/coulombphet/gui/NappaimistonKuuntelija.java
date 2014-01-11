@@ -39,18 +39,13 @@ public class NappaimistonKuuntelija implements KeyListener {
         if (!biljardipeli.getPallotLiikkuu()){
           if (e.getKeyCode() == KeyEvent.VK_LEFT) {
               this.biljardipeli.getKeppi().kierraVastapaivaan();
-              System.out.println("VASTA");
           } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
               this.biljardipeli.getKeppi().kierraMyotapaivaan();
-              System.out.println("MYÖTÄ");
           } else if (e.getKeyCode() == KeyEvent.VK_UP) {
               this.biljardipeli.getKeppi().viritaKeppia();
-              System.out.println("VIRITÄ");
           } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
               this.biljardipeli.getKeppi().puraKeppia();
-              System.out.println("PURA");
           } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-              System.out.println("AMMU");
               
               lyontipallo = this.biljardipeli.getPallot().getLyontiPallo();
               keppi = this.biljardipeli.getKeppi();

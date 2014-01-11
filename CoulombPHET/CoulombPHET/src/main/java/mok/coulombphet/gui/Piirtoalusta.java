@@ -54,49 +54,70 @@ public class Piirtoalusta extends JPanel implements Paivitettava{
      * @param g grafiikka 
      */
     public void piirraPallot(Graphics g) {
+        int viivanPaksuus = 5;
         ArrayList<Pallo> p1 = this.biljardipeli.getPallot().getPallotArray();
         String pelaajanVari = this.biljardipeli.getPelaajat().getPelaaja().getYritanVaria();
         Graphics2D g2 = (Graphics2D) g;
-        g2.setStroke(new BasicStroke(5));  
+        g2.setStroke(new BasicStroke(viivanPaksuus));  
         for (Pallo pallo : p1) {   
             Integer pixelX = lautadata.lautaDouble2PixelX(pallo.getPalloX());
             Integer pixelY = lautadata.lautaDouble2PixelY(pallo.getPalloY());
        
             switch (pallo.getPalloVari()) {
-                case "valkoinen":
+                case "valkoinen":           
                     // jos yritetään punaisia tai sinisiä piirretään
-                    // vastaava väri lyöntipallon ympärille
-                    
+                    // vastaava väri lyöntipallon ympärille                    
                     if (pelaajanVari.equals("sininen")){
                       g2.setColor(Color.BLUE);
                       g2.drawOval(pixelX-lautadata.getpallonHalkaisijaPixel()/2, 
                       pixelY-lautadata.getpallonHalkaisijaPixel()/2,
                       lautadata.getpallonHalkaisijaPixel(),
                       lautadata.getpallonHalkaisijaPixel());
-                    }
-                    if (pelaajanVari.equals("punainen")){
+                    }else if (pelaajanVari.equals("punainen")){
+                      g2.setColor(Color.RED);     
+                      g2.drawOval(pixelX-lautadata.getpallonHalkaisijaPixel()/2, 
+                      pixelY-lautadata.getpallonHalkaisijaPixel()/2,
+                      lautadata.getpallonHalkaisijaPixel(),
+                      lautadata.getpallonHalkaisijaPixel());
+                    } else {
+                      g2.setColor(Color.WHITE);
+                    }                    
+                    g.setColor(Color.WHITE);                  
+                    break;
+                case "musta":
+                    if (pelaajanVari.equals("sininen")){
+                      g2.setColor(Color.BLUE);
+                      g2.drawOval(pixelX-lautadata.getpallonHalkaisijaPixel()/2, 
+                      pixelY-lautadata.getpallonHalkaisijaPixel()/2,
+                      lautadata.getpallonHalkaisijaPixel(),
+                      lautadata.getpallonHalkaisijaPixel());   
+                    }else if (pelaajanVari.equals("punainen")){
                       g2.setColor(Color.RED);
                       g2.drawOval(pixelX-lautadata.getpallonHalkaisijaPixel()/2, 
                       pixelY-lautadata.getpallonHalkaisijaPixel()/2,
                       lautadata.getpallonHalkaisijaPixel(),
-                      lautadata.getpallonHalkaisijaPixel());                       
-                    }
-                    g.setColor(Color.WHITE);
-                    break;
-                case "musta":
+                      lautadata.getpallonHalkaisijaPixel());   
+                    } else {
+                      g2.setColor(Color.BLACK);
+                    }        
+                                     
                     g.setColor(Color.BLACK);
+                                     
                     break;
                 default:
                     if (pallo.getPalloVaraus() < 0) {
                         g.setColor(Color.RED);
+                        g2.setColor(Color.RED);
                     } else {
                         g.setColor(Color.BLUE);
-                    }   break;
+                        g2.setColor(Color.BLUE);
+                    }   
+                    break;
             }
             g.fillOval(pixelX-lautadata.getpallonHalkaisijaPixel()/2, 
                     pixelY-lautadata.getpallonHalkaisijaPixel()/2,
                     lautadata.getpallonHalkaisijaPixel(),
-                    lautadata.getpallonHalkaisijaPixel());
+                    lautadata.getpallonHalkaisijaPixel());  
         }
     }
     
@@ -166,13 +187,22 @@ public class Piirtoalusta extends JPanel implements Paivitettava{
      * @param g grafiikka 
      */
     public void piirraTeksti(Graphics g) {
-        Integer pelaaja = this.biljardipeli.getPelaajat().getVuoro();
+        Integer pelaaja = 1 + this.biljardipeli.getPelaajat().getVuoro();
         String kommentti = "Vuorossa pelaaja: "+pelaaja.toString();
+        kommentti += " , joka yrittää väriä: "
+                  + this.biljardipeli.getPelaajat().
+                    getPelaaja().getYritanVaria();
         if (this.biljardipeli.getPelaajat().getPelaaja().getvoittanut()){
             kommentti = "Pelin voitti: " + pelaaja.toString();
+            kommentti += " , joka yritti väriä: "
+                      + this.biljardipeli.getPelaajat().
+                        getPelaaja().getYritanVaria();
         }
         if (this.biljardipeli.getPelaajat().getPelaaja().getHavinnyt()){
             kommentti = "Pelin hävisi: " + pelaaja.toString();
+            kommentti += " , joka yritti väriä: "
+                      + this.biljardipeli.getPelaajat().
+                        getPelaaja().getYritanVaria();          
         }      
         g.setColor(Color.BLACK);
         g.drawString(kommentti, 10, 10);

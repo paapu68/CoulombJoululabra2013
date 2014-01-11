@@ -61,7 +61,8 @@ public class Biljardipeli extends Timer implements ActionListener {
         this.pallotliikkuu = false;
         
         pallot.asetaPallojenAlkupaikat();
-        pallot.asetaPallojenVaraukset(100);
+        pallot.asetaPallojenPerusVaraus(100);
+        pallot.asetaPallojenVaraukset();
         pallot.asetaPallojenVarit();       
         // testiLisays = new lisaaKiihtyvyydet();
     }
@@ -88,7 +89,6 @@ public class Biljardipeli extends Timer implements ActionListener {
             jatka = reiat.tarkastaPallo(pallot.getMustaPallo());
             
             if (!reiat.tarkastaPallo(pallot.getLyontiPallo())){
-                System.out.println("LP reikään");
                 this.pallot.arvoLyontiPallonPaikka(0, 0, 
                 lautadata.getMaxLautaX(),lautadata.getMaxLautaY(), 0.20);
                 this.pallotliikkuu = false;
@@ -97,13 +97,6 @@ public class Biljardipeli extends Timer implements ActionListener {
                 jatka = pelaajat.tarkastaTilanne(reiat, pallot);                
             } else if (nopeusVerlet.getMaxSiirtyma() < maxSiirtyma &&
                     pallot.suurinNopeus() < this.maxNopeus){
-                System.out.println("Checking alku");
-                System.out.println(nopeusVerlet.getMaxSiirtyma());
-                System.out.println(pallot.suurinNopeus());
-                System.out.println(pallot.suurinKiihtyvyys());
-                System.out.println("Checking -----------");
-                System.out.println("Pallot pysähtyi");
-                System.out.println(nopeusVerlet.getMaxSiirtyma());
                 this.pallotliikkuu = false;
                 this.pallot.nollaaNopeudet();
                 nopeusVerlet.setMaxSiirtyma(1.0);
@@ -116,7 +109,6 @@ public class Biljardipeli extends Timer implements ActionListener {
           
         }  
         jatka = pelaajat.tarkastaTilanne(reiat,pallot);
-        System.out.println("Lopetetaan");
     }
     
     public Pallot getPallot(){
@@ -154,9 +146,8 @@ public class Biljardipeli extends Timer implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent ae) {  
-        //System.out.println("Pelissä action");
         paivitettava.paivita();
-        //setDelay(100);
+        setDelay(1);
     }
 
 }

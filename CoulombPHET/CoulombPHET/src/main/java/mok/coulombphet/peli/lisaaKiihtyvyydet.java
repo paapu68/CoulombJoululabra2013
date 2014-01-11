@@ -44,8 +44,6 @@ public class lisaaKiihtyvyydet {
         final double coulombsConstant = 8.987551787368*1000000000;
         
         ArrayList<Pallo> p1 = pallot.getPallotArray();
-        //System.out.println("OK1");
-        //System.exit(1); 
         for (Pallo pallo1 : p1) {
             for (Pallo pallo2 : p1) {
                 dx = pallo1.getPalloX() - pallo2.getPalloX();
@@ -54,7 +52,6 @@ public class lisaaKiihtyvyydet {
                 double varaus1 = pallo1.getPalloVaraus();
                 double varaus2 = pallo2.getPalloVaraus();
                 double massa = lautadata.getPallonMassa();
-                // System.out.printf("%f %f %f \n", d2, varaus1, massa1);
                 if (d2 > 0.01) {
                     pallo1.lisaaPalloAX(coulombsConstant *  
                         varaus1 * varaus2 * dx / (d2 * massa));
@@ -90,7 +87,6 @@ public class lisaaKiihtyvyydet {
                 d = Math.sqrt(dx*dx + dy*dy) - minDist;
                 d10 = Math.pow(d,10);
                 double massa = lautadata.getPallonMassa();
-                // System.out.printf("%f %f %f \n", d2, varaus1, massa1);
                 if (pallo1 != pallo2) {
                     pallo1.lisaaPalloAX(
                     (epsilon * dx) / (d10 * massa));

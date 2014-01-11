@@ -100,7 +100,6 @@ public final class Reiat {
              if (!this.tarkastaPallo(p1)) {
                  // pallo on reiassa
                  this.ekanaReiassa = p1.getPalloVari(); 
-                 System.out.println("EKANA "+this.ekanaReiassa);
              }
           }
         }
@@ -143,7 +142,7 @@ public final class Reiat {
         for(int j = 0; j <= this.reiatX.size()-1 ; j = j + 1) {
             d = Math.sqrt((x-this.reiatX.get(j))*(x-this.reiatX.get(j))
             +(y-this.reiatY.get(j))*(y-this.reiatY.get(j)));
-            if (d < lautadata.reianHalkaisija) {
+            if (d < lautadata.reianHalkaisija/2.0) {
                 jatka = false;
             }
         }   

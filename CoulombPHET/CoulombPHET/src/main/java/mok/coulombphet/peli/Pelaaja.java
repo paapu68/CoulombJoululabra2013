@@ -27,7 +27,7 @@ public class Pelaaja {
     }
     
     public void vahennaPallojaJaljella(int lisays){
-        this.pallojaJaljella -= this.pallojaJaljella;
+        this.pallojaJaljella = this.pallojaJaljella - lisays;
     }
     
     public int getPallojaJaljella(){
@@ -41,6 +41,9 @@ public class Pelaaja {
         if (vari.equals("sininen")){
             this.yritanVaria = vari;
         }
+        if (vari.equals("musta")){
+            this.yritanVaria = vari;
+        }
     }
     
     public String getYritanVaria(){
@@ -49,6 +52,7 @@ public class Pelaaja {
 
     public void setYritanMustaaPalloa(Boolean yritanMustaa){
         this.yritanMustaaPalloa = yritanMustaa;
+        this.setYritanVaria("musta");        
     }
     
     public Boolean getYritanMustaaPalloa(){

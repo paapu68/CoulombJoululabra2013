@@ -12,12 +12,14 @@ import java.util.ArrayList;    // imports ArrayList
  */
 public class Pallot {    
     private ArrayList<Pallo> pallot;  
-    private LautaData lautadata = new LautaData(); 
+    private LautaData lautadata = new LautaData();
+    private int perusvaraus;
     /** 
      * Biljardipallojen jono 
      */    
     public Pallot() {
         this.pallot = new ArrayList<Pallo>();
+        this.perusvaraus = 0;
     }
 
     public ArrayList<Pallo> getPallotArray() {
@@ -178,6 +180,7 @@ public class Pallot {
     * Asetetaan pallojen varit.
     * vain 0. ja 1. pallo, muut väri varauksen perusteella
     */
+    
     public void asetaPallojenVarit(){       
         // valkoinen pallo ensin
         this.pallot.get(0).setPalloVari("valkoinen");
@@ -194,18 +197,32 @@ public class Pallot {
     }
     
     /**
+     * Asetetaan pallojen perusvaraus (mikro coulumbeja)
+     * punaiset saavat -perusvaraus ja siniset +perusvaraus
+     * @param varaus perusvaraus mikrocoulombeissa
+     */
+     public void asetaPallojenPerusVaraus(int varaus){     
+         this.perusvaraus = varaus;
+     }
+   
+     
+     public int getPallojenPerusVaraus(){
+         return this.perusvaraus;
+     }
+   
+    /**
     * Asetetaan pallojen varaukset.
     * pallot 2-8 negatiivisia
     * pallot 9-15 positiivisia
     */
-    public void asetaPallojenVaraukset(int varaus){          
+    public void asetaPallojenVaraukset(){          
         // negatiiviset (punaiset pallot, 2-8)
         for (int i = 2; i <= 8 ; i = i + 1) {
-            this.pallot.get(i).setPalloVaraus(-varaus);
+            this.pallot.get(i).setPalloVaraus(-perusvaraus);
         }
         // positiiviset (siniset pallot, 9-15)
         for (int i = 9; i <= 15 ; i = i + 1) {
-            this.pallot.get(i).setPalloVaraus(varaus);
+            this.pallot.get(i).setPalloVaraus(perusvaraus);
         }    
     }
     

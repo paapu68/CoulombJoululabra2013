@@ -28,8 +28,6 @@ public class Kayttoliittyma implements Runnable {
     @Override
     public void run() {
         frame = new JFrame("Biljardi");
-        //System.out.println(lautadata.getpituusXpixel());
-        //System.out.println(lautadata.getpituusYpixel());
         frame.setPreferredSize(new Dimension(
                 2*lautadata.getpixelOffsetX()+lautadata.getpituusXpixel(),
                 2*lautadata.getpixelOffsetY()+lautadata.getpituusYpixel()));
@@ -40,9 +38,6 @@ public class Kayttoliittyma implements Runnable {
         
         frame.pack();
         frame.setVisible(true);
-        //System.out.println("RUN");
-        //System.exit(1);
-        
     }
     
     private void luoKomponentit(Container container) {

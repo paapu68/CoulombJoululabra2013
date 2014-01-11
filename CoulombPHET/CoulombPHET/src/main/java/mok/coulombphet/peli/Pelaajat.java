@@ -48,30 +48,16 @@ public class Pelaajat {
      * @param pallot 
      */
     public void vaihdaVaraukset(Pallot pallot){
-        Double punainenVaraus = 
-                -Math.abs(1e6*pallot.getPallotArray().get(2).getPalloVaraus());
-        Double sininenVaraus = -punainenVaraus;
+        int varaus = pallot.getPallojenPerusVaraus();
         
         if (this.getPelaaja().getYritanVaria().equals("punainen")){
-          pallot.getPallotArray().get(0).
-                  setPalloVaraus(punainenVaraus.intValue());
           pallot.getPallotArray().get(1).
-                  setPalloVaraus(punainenVaraus.intValue());
+                  setPalloVaraus(-varaus);
         }
         if (this.getPelaaja().getYritanVaria().equals("sininen")){
-          pallot.getPallotArray().get(0).
-                  setPalloVaraus(sininenVaraus.intValue());
           pallot.getPallotArray().get(1).
-                  setPalloVaraus(sininenVaraus.intValue());
+                  setPalloVaraus(varaus);
         }       
-        
-        //if (this.pelaajat.getPelaaja().getYritanVaria() == "punainen"){
-        //    pallot.getPallotArray().get(0).setPalloVaraus(punainenVaraus);
-        //    pallot.getPallotArray().get(1).setPalloVaraus(punainenVaraus);
-        //}
-        
-        
-        
     }
     
     
